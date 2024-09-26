@@ -8,49 +8,51 @@ import 'counter_bloc.dart';
 class CounterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Counter and Theme Toggle'),
-        actions: [
-          // Theme Toggle Button
-          IconButton(
-            icon: Icon(Icons.brightness_6),
-            onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+    return BlocProvider(
+        create: (context) => CounterBloc(),
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text('Counter and Theme Toggle'),
+            actions: [
+              // Theme Toggle Button
+              IconButton(
+                icon: Icon(Icons.brightness_6),
+                onPressed: () => context.read<ThemeCubit>().toggleTheme(),
+              ),
+            ],
           ),
-        ],
-      ),
-      body: BlocBuilder<CounterBloc, CounterState>(
-        builder: (context, state) {
-          return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Counter Value: ${state.counterValue}',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                Row(
+          body: BlocBuilder<CounterBloc, CounterState>(
+            builder: (context, state) {
+              return Center(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    IconButton(
-                      icon: Icon(Icons.remove),
-                      onPressed: () {
-                        context.read<CounterBloc>().add(Decrement());
-                      },
+                    Text(
+                      'Counter Value: ${state.counterValue}',
+                      style: Theme.of(context).textTheme.bodyMedium,
                     ),
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        context.read<CounterBloc>().add(Increment());
-                      },
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        IconButton(
+                          icon: Icon(Icons.remove),
+                          onPressed: () {
+                            context.read<CounterBloc>().add(Decrement());
+                          },
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.add),
+                          onPressed: () {
+                            context.read<CounterBloc>().add(Increment());
+                          },
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-          );
-        },
-      ),
-    );
+              );
+            },
+          ),
+        ));
   }
 }
