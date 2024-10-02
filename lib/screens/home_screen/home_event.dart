@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:school_police/lib/models/ad.dart';
 
 import '../../models/ad.dart'; // Import the Ad model
 

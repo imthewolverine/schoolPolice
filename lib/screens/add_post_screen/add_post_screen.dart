@@ -34,7 +34,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
               final newAd = Ad(
                 id: DateTime.now().toString(),
                 userName: 'New User',
-                profilePic: 'https://example.com/new_profile.jpg',
+                profilePic: 'https://example.com/new_profile.jpg', // Ensure a valid URL is provided
                 address: _districtController.text,
                 price: _salaryController.text,
                 date: '2024-09-30',
@@ -44,10 +44,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
 
               // Pass the new ad back to HomeScreen
               Navigator.pop(context, newAd);
-            } else if (state is AddPostFailure) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.error)),
-              );
+              print('Returning new ad: $newAd');
+
             }
           },
           child: BlocBuilder<AddPostBloc, AddPostState>(

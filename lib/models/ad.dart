@@ -19,18 +19,9 @@ class Ad {
     required this.additionalInfo,
   });
 
-  // Optional: Add a factory method to create an Ad object from JSON or a map, if needed
-  factory Ad.fromMap(Map<String, dynamic> map) {
-    return Ad(
-      id: map['id'],
-      userName: map['userName'],
-      profilePic: map['profilePic'],
-      address: map['address'],
-      price: map['price'],
-      date: map['date'],
-      shift: map['shift'],
-      additionalInfo: map['additionalInfo'],
-    );
+  @override
+  String toString() {
+    return 'Ad(id: $id, userName: $userName, address: $address, price: $price, date: $date, shift: $shift, additionalInfo: $additionalInfo)';
   }
 
   // Optional: Convert the Ad object to a map (for saving or sending over network, etc.)
@@ -46,4 +37,18 @@ class Ad {
       'additionalInfo': additionalInfo,
     };
   }
+  // Optional: Add a factory method to create an Ad object from JSON or a map, if needed
+  factory Ad.fromMap(Map<String, dynamic> map) {
+    return Ad(
+      id: map['id'],
+      userName: map['userName'],
+      profilePic: map['profilePic'],
+      address: map['address'],
+      price: map['price'],
+      date: map['date'],
+      shift: map['shift'],
+      additionalInfo: map['additionalInfo'],
+    );
+  }
+
 }
