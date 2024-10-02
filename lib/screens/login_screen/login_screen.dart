@@ -4,6 +4,8 @@ import 'package:school_police/screens/counter_screen/counter_screen.dart';
 import 'package:school_police/screens/login_screen/login_bloc.dart';
 import 'package:school_police/screens/signup_screen/signup_screen.dart';
 
+import '../home_screen/home_bloc.dart';
+import '../home_screen/home_event.dart';
 import '../home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -43,7 +45,9 @@ class LoginScreen extends StatelessWidget {
                 if (state is LoginSuccess) {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (_) => HomeScreen()),
+                    MaterialPageRoute(
+                      builder: (_) => HomeScreen(), // HomeScreen now has access to HomeBloc
+                    ),
                   );
                 } else if (state is LoginFailure) {
                   ScaffoldMessenger.of(context).showSnackBar(

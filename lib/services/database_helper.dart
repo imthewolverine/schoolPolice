@@ -33,7 +33,7 @@ class DatabaseHelper {
     final db = await database;
     await db.insert(
       'ads',
-      ad.toMap(), // Assuming you have a toMap() method in your Ad model
+      ad.toMap(),
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
   }

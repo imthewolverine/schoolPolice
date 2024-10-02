@@ -88,6 +88,7 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget _buildAdList(List<Ad> ads) {
+
     return ListView.builder(
       itemCount: ads.length,
       itemBuilder: (context, index) {

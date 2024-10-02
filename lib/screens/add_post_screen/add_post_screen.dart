@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../models/ad.dart';
+import '../home_screen/home_bloc.dart';
+import '../home_screen/home_event.dart';
 import 'add_post_bloc.dart';
 import 'add_post_event.dart';
 import 'add_post_state.dart';
@@ -41,10 +43,8 @@ class _AddPostScreenState extends State<AddPostScreen> {
                 shift: _shiftController.text,
                 additionalInfo: _additionalInfoController.text,
               );
-
               // Pass the new ad back to HomeScreen
               Navigator.pop(context, newAd);
-              print('Returning new ad: $newAd');
 
             }
           },
@@ -82,7 +82,7 @@ class _AddPostScreenState extends State<AddPostScreen> {
                             );
                           }
                         },
-                        child: Text('Add Post'),
+                        child: Text('Post Ad'),
                       ),
                     ],
                   ),
