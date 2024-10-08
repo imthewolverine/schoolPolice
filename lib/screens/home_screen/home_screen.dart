@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_police/screens/notification_screen/notification_screen.dart';
+import 'package:school_police/screens/profile_screen/profile_screen.dart';
 import '../ad_description_screen/ad_description_screen.dart';
 import '../add_post_screen/add_post_screen.dart';
 import '../home_screen/home_bloc.dart';
 import '../home_screen/home_event.dart';
 import '../../models/ad.dart';
 import '../home_screen/home_state.dart';
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,13 +21,19 @@ class HomeScreen extends StatelessWidget {
             IconButton(
               icon: Icon(Icons.notifications),
               onPressed: () {
-                // Navigate to notifications
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => NotificationScreen()));
               },
             ),
             IconButton(
               icon: Icon(Icons.person),
               onPressed: () {
-                // Navigate to profile screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
+                );
               },
             ),
           ],
@@ -60,7 +69,9 @@ class HomeScreen extends StatelessWidget {
 
                 if (newAd != null && newAd is Ad) {
                   print('New Ad: $newAd');
-                  innerContext.read<HomeBloc>().add(AddNewAd(newAd)); // Use innerContext
+                  innerContext
+                      .read<HomeBloc>()
+                      .add(AddNewAd(newAd)); // Use innerContext
                 }
               },
               child: Icon(Icons.add),
@@ -128,4 +139,3 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
-
