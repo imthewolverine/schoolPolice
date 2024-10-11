@@ -28,3 +28,13 @@ class LoginFailure extends LoginState {
   @override
   List<Object> get props => [message];
 }
+
+// State to manage password visibility
+class ObscurePasswordState extends LoginState {
+  final bool obscurePassword;
+
+  const ObscurePasswordState({required this.obscurePassword});
+
+  @override
+  List<Object> get props => [obscurePassword];
+}
