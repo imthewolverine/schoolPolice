@@ -8,6 +8,9 @@ part 'login_state.dart';
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthService authService;
 
+  // Set the initial obscurePassword state to `true`
+  bool obscurePassword = true;
+
   LoginBloc(this.authService) : super(LoginInitial()) {
     on<Check>((event, emit) async {
       emit(LoginLoading());
@@ -17,8 +20,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       if (token != null) {
         emit(LoginSuccess(token: token));
       } else {
-        emit(LoginFailure(message: 'Нэвртэх нэр эсвэл нууц үг буруу байна'));
+        emit(LoginFailure(message: 'Нэвтрэх нэр эсвэл нууц үг буруу байна'));
       }
+    });
+
+    // Handle the toggle password visibility event
+    on<TogglePasswordVisibility>((event, emit) {
+      obscurePassword = !event.obscurePassword;
+      emit(ObscurePasswordState(obscurePassword: obscurePassword));
     });
   }
 }

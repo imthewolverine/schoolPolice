@@ -29,9 +29,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Theme Toggle',
             theme: theme,
-            home: LoginScreen(
-              title: 'Login',
-            ),
+            home: LoginScreen(),
           );
         },
       ),
