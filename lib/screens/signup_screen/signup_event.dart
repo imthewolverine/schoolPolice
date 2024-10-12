@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:equatable/equatable.dart';
 
 abstract class SignupEvent extends Equatable {
@@ -7,15 +5,6 @@ abstract class SignupEvent extends Equatable {
 
   @override
   List<Object> get props => [];
-}
-
-class SignupImageChanged extends SignupEvent {
-  final File image;
-
-  const SignupImageChanged(this.image);
-
-  @override
-  List<Object> get props => [image];
 }
 
 class SignupUsernameChanged extends SignupEvent {
@@ -27,24 +16,6 @@ class SignupUsernameChanged extends SignupEvent {
   List<Object> get props => [username];
 }
 
-class SignupFirstNameChanged extends SignupEvent {
-  final String firstName;
-
-  const SignupFirstNameChanged(this.firstName);
-
-  @override
-  List<Object> get props => [firstName];
-}
-
-class SignupLastNameChanged extends SignupEvent {
-  final String lastName;
-
-  const SignupLastNameChanged(this.lastName);
-
-  @override
-  List<Object> get props => [lastName];
-}
-
 class SignupEmailChanged extends SignupEvent {
   final String email;
 
@@ -52,15 +23,6 @@ class SignupEmailChanged extends SignupEvent {
 
   @override
   List<Object> get props => [email];
-}
-
-class SignupPhoneNumberChanged extends SignupEvent {
-  final int phoneNumber;
-
-  const SignupPhoneNumberChanged(this.phoneNumber);
-
-  @override
-  List<Object> get props => [phoneNumber];
 }
 
 class SignupPasswordChanged extends SignupEvent {
@@ -82,3 +44,21 @@ class SignupPasswordAgainChanged extends SignupEvent {
 }
 
 class SignupSubmitted extends SignupEvent {}
+
+class TogglePasswordVisibility extends SignupEvent {
+  final bool obscurePassword;
+
+  const TogglePasswordVisibility({required this.obscurePassword});
+
+  @override
+  List<Object> get props => [obscurePassword];
+}
+
+class ToggleConfirmPasswordVisibility extends SignupEvent {
+  final bool obscureConfirmPassword;
+
+  const ToggleConfirmPasswordVisibility({required this.obscureConfirmPassword});
+
+  @override
+  List<Object> get props => [obscureConfirmPassword];
+}

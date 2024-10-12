@@ -4,19 +4,13 @@ import 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc() : super(const SignupState()) {
-    on<SignupImageChanged>(_onImageChanged);
     on<SignupUsernameChanged>(_onUsernameChanged);
-    on<SignupFirstNameChanged>(_onFirstNameChanged);
-    on<SignupLastNameChanged>(_onLastNameChanged);
     on<SignupEmailChanged>(_onEmailChanged);
-    on<SignupPhoneNumberChanged>(_onPhoneNumberChanged);
     on<SignupPasswordChanged>(_onPasswordChanged);
     on<SignupPasswordAgainChanged>(_onPasswordAgainChanged);
     on<SignupSubmitted>(_onSignupSubmitted);
-  }
-
-  void _onImageChanged(SignupImageChanged event, Emitter<SignupState> emit) {
-    emit(state.copyWith(image: event.image));
+    on<TogglePasswordVisibility>(_onTogglePasswordVisibility);
+    on<ToggleConfirmPasswordVisibility>(_onToggleConfirmPasswordVisibility);
   }
 
   void _onUsernameChanged(
@@ -24,23 +18,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     emit(state.copyWith(username: event.username));
   }
 
-  void _onFirstNameChanged(
-      SignupFirstNameChanged event, Emitter<SignupState> emit) {
-    emit(state.copyWith(firstName: event.firstName));
-  }
-
-  void _onLastNameChanged(
-      SignupLastNameChanged event, Emitter<SignupState> emit) {
-    emit(state.copyWith(lastName: event.lastName));
-  }
-
   void _onEmailChanged(SignupEmailChanged event, Emitter<SignupState> emit) {
     emit(state.copyWith(email: event.email));
-  }
-
-  void _onPhoneNumberChanged(
-      SignupPhoneNumberChanged event, Emitter<SignupState> emit) {
-    emit(state.copyWith(phoneNumber: event.phoneNumber));
   }
 
   void _onPasswordChanged(
@@ -51,6 +30,16 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   void _onPasswordAgainChanged(
       SignupPasswordAgainChanged event, Emitter<SignupState> emit) {
     emit(state.copyWith(confirmPassword: event.confirmPassword));
+  }
+
+  void _onTogglePasswordVisibility(
+      TogglePasswordVisibility event, Emitter<SignupState> emit) {
+    emit(state.copyWith(obscurePassword: !event.obscurePassword));
+  }
+
+  void _onToggleConfirmPasswordVisibility(
+      ToggleConfirmPasswordVisibility event, Emitter<SignupState> emit) {
+    emit(state.copyWith(obscureConfirmPassword: !event.obscureConfirmPassword));
   }
 
   Future<bool> _isEmailValid(String email) async {
@@ -104,28 +93,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         isSuccess: false,
         isFailure: true,
         errorMessage: 'Бүртгэлтэй email хаяг байна',
-      ));
-      emit(state.copyWith(isFailure: false));
-      return;
-    }
-
-    if (await _isPhoneNumberUnique(state.phoneNumber) == false) {
-      emit(state.copyWith(
-        isSubmitting: false,
-        isSuccess: false,
-        isFailure: true,
-        errorMessage: 'Бүртгэлтэй утасны дугаар байна',
-      ));
-      emit(state.copyWith(isFailure: false));
-      return;
-    }
-
-    if (state.phoneNumber.toString().length != 8) {
-      emit(state.copyWith(
-        isSubmitting: false,
-        isSuccess: false,
-        isFailure: true,
-        errorMessage: 'Боломжтой утасны дугаар оруулна уу',
       ));
       emit(state.copyWith(isFailure: false));
       return;

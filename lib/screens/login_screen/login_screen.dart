@@ -26,21 +26,22 @@ class LoginScreen extends StatelessWidget {
             children: <Widget>[
               Image.asset(
                 'assets/images/logo.png',
-                width: double.infinity, // Set width to full
-                fit: BoxFit.contain, // Ensure the logo fits within the bounds
+                height: 80,
+                fit: BoxFit.contain,
               ),
               const SizedBox(height: 96),
               TextField(
                 controller: emailController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
+                style: theme.textTheme.bodyLarge,
+                decoration: InputDecoration(
                   labelText: 'Имэйл эсвэл нэвтрэх нэр',
+                  labelStyle: theme.textTheme.bodyLarge,
                   fillColor: null,
                   filled: false,
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.yellow),
                   ),
                 ),
@@ -56,11 +57,13 @@ class LoginScreen extends StatelessWidget {
 
                   return TextField(
                     controller: passwordController,
-                    obscureText: obscurePassword, // Use the state value
+                    obscureText: obscurePassword,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: 'Нууц үг',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: theme.textTheme.bodyLarge,
+                      fillColor: null,
+                      filled: false,
                       suffixIcon: IconButton(
                         icon: Icon(
                           obscurePassword
@@ -69,7 +72,6 @@ class LoginScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          // Dispatch the toggle event to the bloc
                           loginBloc.add(
                             TogglePasswordVisibility(
                                 obscurePassword: obscurePassword),
@@ -120,9 +122,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'эсвэл',
-                        style: TextStyle(color: Colors.white),
+                        style: theme.textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -160,12 +162,8 @@ class LoginScreen extends StatelessWidget {
                         onTap: () {
                           // Navigate to Forgot Password screen
                         },
-                        child: const Text(
-                          'Нууц үг мартсан?',
-                          style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline),
-                        ),
+                        child: Text('Нууц үг мартсан?',
+                            style: theme.textTheme.bodyLarge),
                       ),
                       const SizedBox(height: 8),
                       GestureDetector(
@@ -176,11 +174,9 @@ class LoginScreen extends StatelessWidget {
                                 builder: (context) => const SignupScreen()),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           'Бүртгэлгүй юу? Шинээр бүртгүүлэх',
-                          style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline),
+                          style: theme.textTheme.bodyLarge,
                         ),
                       ),
                     ],
