@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_police/screens/login_screen/login_bloc.dart';
 import 'package:school_police/screens/signup_screen/signup_screen.dart';
+import 'package:school_police/widgets/forgot_password_dialog.dart';
 import '../home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -49,7 +50,6 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 16),
               BlocBuilder<LoginBloc, LoginState>(
                 builder: (context, state) {
-                  // Determine the current state of `obscurePassword`
                   bool obscurePassword = true;
                   if (state is ObscurePasswordState) {
                     obscurePassword = state.obscurePassword;
@@ -158,9 +158,12 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
+
+                      // Forgot password gesture
                       GestureDetector(
                         onTap: () {
-                          // Navigate to Forgot Password screen
+                          _showForgotPasswordDialog(
+                              context); // Call the dialog method
                         },
                         child: Text('Нууц үг мартсан?',
                             style: theme.textTheme.bodyLarge),
@@ -187,6 +190,16 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  // Method to show the forgot password dialog
+  void _showForgotPasswordDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ForgotPasswordDialog(); // Display the ForgotPasswordDialog widget
+      },
     );
   }
 }
