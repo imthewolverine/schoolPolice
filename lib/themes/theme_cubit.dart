@@ -17,7 +17,7 @@ class ThemeDataStyle {
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
-      surface: Color.fromRGBO(200, 200, 200, 1),
+      surface: Color.fromRGBO(230, 230, 230, 1),
       primary: Color.fromRGBO(1, 5, 54, 1),
       secondary: Color(0xFFFFFF00),
       surfaceContainerHighest: Color.fromRGBO(1, 5, 54, 1),
