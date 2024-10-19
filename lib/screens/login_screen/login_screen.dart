@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_police/screens/login_screen/login_bloc.dart';
 import 'package:school_police/screens/signup_screen/signup_screen.dart';
+import 'package:school_police/widgets/forgot_password_dialog.dart';
 import '../home_screen/home_screen.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -26,21 +27,22 @@ class LoginScreen extends StatelessWidget {
             children: <Widget>[
               Image.asset(
                 'assets/images/logo.png',
-                width: double.infinity, // Set width to full
-                fit: BoxFit.contain, // Ensure the logo fits within the bounds
+                height: 80,
+                fit: BoxFit.contain,
               ),
               const SizedBox(height: 96),
               TextField(
                 controller: emailController,
-                style: const TextStyle(color: Colors.white),
-                decoration: const InputDecoration(
+                style: theme.textTheme.bodyLarge,
+                decoration: InputDecoration(
                   labelText: 'Имэйл эсвэл нэвтрэх нэр',
+                  labelStyle: theme.textTheme.bodyLarge,
                   fillColor: null,
                   filled: false,
-                  enabledBorder: UnderlineInputBorder(
+                  enabledBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
                   ),
-                  focusedBorder: UnderlineInputBorder(
+                  focusedBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.yellow),
                   ),
                 ),
@@ -48,7 +50,6 @@ class LoginScreen extends StatelessWidget {
               const SizedBox(height: 16),
               BlocBuilder<LoginBloc, LoginState>(
                 builder: (context, state) {
-                  // Determine the current state of `obscurePassword`
                   bool obscurePassword = true;
                   if (state is ObscurePasswordState) {
                     obscurePassword = state.obscurePassword;
@@ -56,11 +57,13 @@ class LoginScreen extends StatelessWidget {
 
                   return TextField(
                     controller: passwordController,
-                    obscureText: obscurePassword, // Use the state value
+                    obscureText: obscurePassword,
                     style: const TextStyle(color: Colors.white),
                     decoration: InputDecoration(
                       labelText: 'Нууц үг',
-                      labelStyle: const TextStyle(color: Colors.white),
+                      labelStyle: theme.textTheme.bodyLarge,
+                      fillColor: null,
+                      filled: false,
                       suffixIcon: IconButton(
                         icon: Icon(
                           obscurePassword
@@ -69,7 +72,6 @@ class LoginScreen extends StatelessWidget {
                           color: Colors.white,
                         ),
                         onPressed: () {
-                          // Dispatch the toggle event to the bloc
                           loginBloc.add(
                             TogglePasswordVisibility(
                                 obscurePassword: obscurePassword),
@@ -120,9 +122,9 @@ class LoginScreen extends StatelessWidget {
                         ),
                       ),
                       const SizedBox(height: 16),
-                      const Text(
+                      Text(
                         'эсвэл',
-                        style: TextStyle(color: Colors.white),
+                        style: theme.textTheme.bodyLarge,
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -156,16 +158,15 @@ class LoginScreen extends StatelessWidget {
                         ],
                       ),
                       const SizedBox(height: 16),
+
+                      // Forgot password gesture
                       GestureDetector(
                         onTap: () {
-                          // Navigate to Forgot Password screen
+                          _showForgotPasswordDialog(
+                              context); // Call the dialog method
                         },
-                        child: const Text(
-                          'Нууц үг мартсан?',
-                          style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline),
-                        ),
+                        child: Text('Нууц үг мартсан?',
+                            style: theme.textTheme.bodyLarge),
                       ),
                       const SizedBox(height: 8),
                       GestureDetector(
@@ -176,11 +177,9 @@ class LoginScreen extends StatelessWidget {
                                 builder: (context) => const SignupScreen()),
                           );
                         },
-                        child: const Text(
+                        child: Text(
                           'Бүртгэлгүй юу? Шинээр бүртгүүлэх',
-                          style: TextStyle(
-                              color: Colors.white,
-                              decoration: TextDecoration.underline),
+                          style: theme.textTheme.bodyLarge,
                         ),
                       ),
                     ],
@@ -191,6 +190,16 @@ class LoginScreen extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+
+  // Method to show the forgot password dialog
+  void _showForgotPasswordDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return ForgotPasswordDialog(); // Display the ForgotPasswordDialog widget
+      },
     );
   }
 }
