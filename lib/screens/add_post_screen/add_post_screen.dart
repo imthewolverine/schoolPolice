@@ -32,18 +32,17 @@ class _AddPostScreenState extends State<AddPostScreen> {
         body: BlocListener<AddPostBloc, AddPostState>(
           listener: (context, state) {
             if (state is AddPostSuccess) {
-              // Create a new Ad object with the entered information
               final newAd = Ad(
                 id: DateTime.now().toString(),
                 userName: 'New User',
-                profilePic: 'https://example.com/new_profile.jpg', // Ensure a valid URL is provided
+                profilePic: 'https://example.com/new_profile.jpg',
                 address: _districtController.text,
                 price: _salaryController.text,
                 date: '2024-09-30',
                 shift: _shiftController.text,
                 additionalInfo: _additionalInfoController.text,
               );
-              // Pass the new ad back to HomeScreen
+              context.read<HomeBloc>().add(AddNewAd(newAd));
               Navigator.pop(context, newAd);
 
             }
@@ -69,7 +68,6 @@ class _AddPostScreenState extends State<AddPostScreen> {
                       ElevatedButton(
                         onPressed: () {
                           if (_formKey.currentState!.validate()) {
-                            // Accessing the AddPostBloc and adding the SubmitPostEvent
                             BlocProvider.of<AddPostBloc>(context).add(
                               SubmitPostEvent(
                                 school: _schoolController.text,
