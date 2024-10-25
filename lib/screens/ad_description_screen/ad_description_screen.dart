@@ -95,7 +95,6 @@ class AdDescriptionScreen extends StatelessWidget {
                     SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        // Submit job request
                         context.read<AdDescriptionBloc>().add(SubmitJobRequest(adId));
                       },
                       child: (state is JobRequestLoading)
@@ -105,7 +104,6 @@ class AdDescriptionScreen extends StatelessWidget {
                     SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
-                        // Open phone dialer with the person's phone number
                         _launchPhoneDialer(phoneNumber);
                       },
                       child: Text('Contact'),
@@ -126,7 +124,7 @@ class AdDescriptionScreen extends StatelessWidget {
       path: phoneNumber,
     );
     if (await canLaunchUrl(launchUri)) {
-      await launchUrl(launchUri); // Make sure this function is properly imported
+      await launchUrl(launchUri);
     } else {
       throw 'Could not launch $phoneNumber';
     }

@@ -192,8 +192,7 @@ class LoginScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Method to show the forgot password dialog
+  
   void _showForgotPasswordDialog(BuildContext context) {
     showDialog(
       context: context,

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_police/screens/home_screen/home_bloc.dart';
+import 'package:school_police/screens/home_screen/home_event.dart';
 import 'package:school_police/screens/login_screen/login_bloc.dart';
 import 'package:school_police/screens/login_screen/login_screen.dart';
 import 'package:school_police/services/auth_service.dart';
@@ -23,6 +25,7 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => ThemeCubit()),
         BlocProvider(create: (_) => LoginBloc(authService)),
+        BlocProvider(create: (_) => HomeBloc()..add(LoadAds())),
       ],
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, theme) {

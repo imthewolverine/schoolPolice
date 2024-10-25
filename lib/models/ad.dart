@@ -24,7 +24,6 @@ class Ad {
     return 'Ad(id: $id, userName: $userName, address: $address, price: $price, date: $date, shift: $shift, additionalInfo: $additionalInfo)';
   }
 
-  // Optional: Convert the Ad object to a map (for saving or sending over network, etc.)
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -37,7 +36,7 @@ class Ad {
       'additionalInfo': additionalInfo,
     };
   }
-  // Optional: Add a factory method to create an Ad object from JSON or a map, if needed
+
   factory Ad.fromMap(Map<String, dynamic> map) {
     return Ad(
       id: map['id'],
@@ -50,5 +49,4 @@ class Ad {
       additionalInfo: map['additionalInfo'],
     );
   }
-
 }
