@@ -27,10 +27,8 @@ class HomeScreen extends StatelessWidget {
                   ), // Temporary profile image
                 ),
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ProfileScreen()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfileScreen()));
                 },
               ),
               Expanded(
@@ -85,7 +83,9 @@ class HomeScreen extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => AddPostScreen()),
                     );
                   },
-                  backgroundColor: Theme.of(context).colorScheme.primary, // Use primary color from theme
+                  backgroundColor: Theme.of(context)
+                      .colorScheme
+                      .primary, // Use primary color from theme
                   child: Icon(Icons.add, color: Colors.white),
                 ),
               ),
@@ -108,7 +108,8 @@ class HomeScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide.none,
           ),
-          prefixIcon: Icon(Icons.search, color: Colors.black), // Search icon color
+          prefixIcon:
+              Icon(Icons.search, color: Colors.black), // Search icon color
         ),
         onChanged: (query) {
           // Search functionality
@@ -127,8 +128,10 @@ class HomeScreen extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              _buildAdBanner('https://popartmediagroup.co.uk/wp-content/uploads/2019/12/santaclauscoke-944x531.jpg.webp'),
-              _buildAdBanner('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
+              _buildAdBanner(
+                  'https://popartmediagroup.co.uk/wp-content/uploads/2019/12/santaclauscoke-944x531.jpg.webp'),
+              _buildAdBanner(
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
             ],
           ),
         ),
@@ -182,8 +185,10 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ad.address ?? "246 - P СУРГУУЛЬ", // Default title if not provided
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ad.address ??
+                            "246 - P СУРГУУЛЬ", // Default title if not provided
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Text(
                         ad.date ?? "2024/07/29", // Default date if not provided
@@ -191,7 +196,8 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 5.0), // Spacing between title and other details
+                  const SizedBox(
+                      height: 5.0), // Spacing between title and other details
 
                   // Price and Shift Info
                   Row(
@@ -208,7 +214,10 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 4.0),
                           Text(
                             '${ad.price ?? "50,000 ₮"}', // Default price
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Color(0xFF00204A)),
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Color(0xFF00204A)),
                           ),
                         ],
                       ),
@@ -224,10 +233,14 @@ class HomeScreen extends StatelessWidget {
                           const SizedBox(height: 4.0),
                           Row(
                             children: [
-                              Icon(Icons.access_time, color: Colors.amber, size: 16), // Clock icon
+                              Icon(Icons.access_time,
+                                  color: Colors.amber, size: 16), // Clock icon
                               const SizedBox(width: 5.0),
-                              Text(ad.shift ?? "07:30 - 12:30", // Default shift time
-                                  style: TextStyle(fontWeight: FontWeight.bold)),
+                              Text(
+                                  ad.shift ??
+                                      "07:30 - 12:30", // Default shift time
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ],
@@ -263,7 +276,8 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(0xFF00204A), // Use scaffold background color for the arrow button
+                    color: Color(
+                        0xFF00204A), // Use scaffold background color for the arrow button
                     shape: BoxShape.circle,
                   ),
                   padding: EdgeInsets.all(8.0),
