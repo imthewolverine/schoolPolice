@@ -58,25 +58,51 @@ class HomeScreen extends StatelessWidget {
             ),
           ],
         ),
-        floatingActionButton: Builder(
-          builder: (BuildContext innerContext) {
-            return FloatingActionButton(
-              onPressed: () async {
-                final newAd = await Navigator.push(
-                  innerContext, // Use innerContext instead of context
-                  MaterialPageRoute(builder: (context) => AddPostScreen()),
-                );
-
-                if (newAd != null && newAd is Ad) {
-                  print('New Ad: $newAd');
-                  innerContext
-                      .read<HomeBloc>()
-                      .add(AddNewAd(newAd)); // Use innerContext
-                }
-              },
-              child: Icon(Icons.add),
-            );
+        floatingActionButtonLocation:
+            FloatingActionButtonLocation.centerDocked, // Center the FAB
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            _showAddPostBottomSheet(
+                context); // Show AddPostScreen as a bottom sheet
           },
+          child: Icon(Icons.add),
+        ),
+        bottomNavigationBar: BottomAppBar(
+          shape: CircularNotchedRectangle(),
+          notchMargin: 8.0,
+          child: Container(height: 50.0), // Space for the FAB
+        ),
+      ),
+    );
+  }
+
+  void _showAddPostBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled:
+          true, // Allows the bottom sheet to be scrollable and controlled
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+            top: Radius.circular(20)), // Rounded corners at the top
+      ),
+      builder: (context) => FractionallySizedBox(
+        heightFactor: 0.9, // Take up 90% of the screen height
+        child: Column(
+          children: [
+            // A drag handle at the top
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: 40,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Expanded(
+              child: AddPostScreen(), // Your AddPostScreen contents here
+            ),
+          ],
         ),
       ),
     );
