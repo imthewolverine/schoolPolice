@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
       create: (_) => HomeBloc()..add(LoadAds()),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.white, // White background
+          backgroundColor: Colors.white,
           elevation: 0,
           title: Row(
             children: [
@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
                 icon: CircleAvatar(
                   backgroundImage: NetworkImage(
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
-                  ), // Temporary profile image
+                  ),
                 ),
                 onPressed: () {
                   Navigator.push(context,
@@ -46,13 +46,12 @@ class HomeScreen extends StatelessWidget {
             ],
           ),
         ),
-        // Use the scaffold background color from the theme
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        backgroundColor: Colors.white,
         body: Stack(
           children: [
             Column(
               children: [
-                _buildTopSection(context), // Banners section
+                _buildTopSection(context),
                 Expanded(
                   child: BlocBuilder<HomeBloc, HomeState>(
                     builder: (context, state) {
@@ -70,7 +69,6 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
-            // Centered FloatingActionButton
             Positioned(
               bottom: 20,
               left: 0,
@@ -83,9 +81,7 @@ class HomeScreen extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => AddPostScreen()),
                     );
                   },
-                  backgroundColor: Theme.of(context)
-                      .colorScheme
-                      .primary, // Use primary color from theme
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   child: Icon(Icons.add, color: Colors.white),
                 ),
               ),
@@ -102,14 +98,13 @@ class HomeScreen extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Хайх...',
-          fillColor: Colors.grey[200], // Background color for search bar
+          fillColor: Colors.grey[200],
           filled: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide.none,
           ),
-          prefixIcon:
-              Icon(Icons.search, color: Colors.black), // Search icon color
+          prefixIcon: Icon(Icons.search, color: Colors.black),
         ),
         onChanged: (query) {
           // Search functionality
@@ -121,7 +116,6 @@ class HomeScreen extends StatelessWidget {
   Widget _buildTopSection(BuildContext context) {
     return Column(
       children: [
-        // Ad section with banners or promotional images
         Container(
           height: 150,
           margin: EdgeInsets.symmetric(vertical: 10),
@@ -156,7 +150,6 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  // Updated Ad Card to match the desired design
   Widget _buildAdCard(BuildContext context, Ad ad) {
     return Card(
       margin: const EdgeInsets.all(15.0),
@@ -166,54 +159,43 @@ class HomeScreen extends StatelessWidget {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // Profile Picture
             CircleAvatar(
               radius: 30,
               backgroundImage: NetworkImage(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+                ad.profilePic,
               ),
             ),
-            const SizedBox(width: 12.0), // Spacing between avatar and details
+            const SizedBox(width: 12.0),
 
-            // Ad Details Column
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Ad Title and Date
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        ad.address ??
-                            "246 - P СУРГУУЛЬ", // Default title if not provided
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
+                        ad.address,
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                       ),
                       Text(
-                        ad.date ?? "2024/07/29", // Default date if not provided
+                        ad.date,
                         style: TextStyle(color: Colors.grey),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                      height: 5.0), // Spacing between title and other details
+                  const SizedBox(height: 5.0),
 
-                  // Price and Shift Info
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      // Price
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Үнэ / Хөлс',
-                            style: TextStyle(color: Colors.grey),
-                          ),
+                          Text('Үнэ / Хөлс', style: TextStyle(color: Colors.grey)),
                           const SizedBox(height: 4.0),
                           Text(
-                            '${ad.price}', // Default price
+                            '${ad.price}',
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 18,
@@ -221,26 +203,17 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-
-                      // Shift Time
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            'Өглөений Ээлж',
-                            style: TextStyle(color: Colors.grey),
-                          ),
+                          Text('Өглөений Ээлж', style: TextStyle(color: Colors.grey)),
                           const SizedBox(height: 4.0),
                           Row(
                             children: [
                               Icon(Icons.access_time,
-                                  color: Colors.amber, size: 16), // Clock icon
+                                  color: Colors.amber, size: 16),
                               const SizedBox(width: 5.0),
-                              Text(
-                                  ad.shift ??
-                                      "07:30 - 12:30", // Default shift time
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
+                              Text(ad.shift, style: TextStyle(fontWeight: FontWeight.bold)),
                             ],
                           ),
                         ],
@@ -251,7 +224,6 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Navigation Arrow Icon in a Circle Button
             Align(
               alignment: Alignment.bottomRight,
               child: InkWell(
@@ -264,11 +236,12 @@ class HomeScreen extends StatelessWidget {
                         userName: ad.userName,
                         profilePic: ad.profilePic,
                         address: ad.address,
-                        details: "Details about the shift",
+                        details: ad.additionalInfo,
                         price: ad.price,
                         date: ad.date,
                         shift: ad.shift,
-                        views: 50,
+                        views: ad.views,
+                        requestCount: ad.requestCount, // Ensure requestCount is passed
                         phoneNumber: "1234567890",
                       ),
                     ),
@@ -276,14 +249,13 @@ class HomeScreen extends StatelessWidget {
                 },
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Color(
-                        0xFF00204A), // Use scaffold background color for the arrow button
+                    color: Color(0xFF00204A),
                     shape: BoxShape.circle,
                   ),
                   padding: EdgeInsets.all(8.0),
                   child: Icon(
                     Icons.arrow_forward_ios,
-                    color: Colors.white, // White arrow color
+                    color: Colors.white,
                     size: 18,
                   ),
                 ),

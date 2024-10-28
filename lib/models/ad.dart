@@ -7,6 +7,8 @@ class Ad {
   final String date;
   final String shift;
   final String additionalInfo;
+  final int views;
+  final int requestCount; // New field for request count
 
   Ad({
     required this.id,
@@ -17,13 +19,11 @@ class Ad {
     required this.date,
     required this.shift,
     required this.additionalInfo,
+    this.views = 0,
+    this.requestCount = 0, // Default value of 0
   });
 
-  @override
-  String toString() {
-    return 'Ad(id: $id, userName: $userName, address: $address, price: $price, date: $date, shift: $shift, additionalInfo: $additionalInfo)';
-  }
-
+  // toMap and fromMap should be updated to include requestCount
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -34,6 +34,8 @@ class Ad {
       'date': date,
       'shift': shift,
       'additionalInfo': additionalInfo,
+      'views': views,
+      'requestCount': requestCount, // Include requestCount in map
     };
   }
 
@@ -47,6 +49,8 @@ class Ad {
       date: map['date'],
       shift: map['shift'],
       additionalInfo: map['additionalInfo'],
+      views: map['views'] ?? 0,
+      requestCount: map['requestCount'] ?? 0, // Default to 0 if missing
     );
   }
 }
