@@ -1,19 +1,19 @@
-import 'package:equatable/equatable.dart';
+abstract class AddPostEvent {}
 
-// Define all the events for the AddPostBloc
-abstract class AddPostEvent extends Equatable {
-  const AddPostEvent();
-
-  @override
-  List<Object?> get props => [];
+class DistrictChanged extends AddPostEvent {
+  final String district;
+  DistrictChanged(this.district);
 }
 
-// Event for submitting the post
+class ShiftChanged extends AddPostEvent {
+  final String shift;
+  ShiftChanged(this.shift);
+}
+
 class SubmitPostEvent extends AddPostEvent {
   final String school;
   final String district;
   final String shift;
-  final String time;
   final String salary;
   final String additionalInfo;
 
@@ -21,11 +21,7 @@ class SubmitPostEvent extends AddPostEvent {
     required this.school,
     required this.district,
     required this.shift,
-    required this.time,
     required this.salary,
     required this.additionalInfo,
   });
-
-  @override
-  List<Object?> get props => [school, district, shift, time, salary, additionalInfo];
 }

@@ -1,94 +1,237 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:school_police/widgets/ad_card.dart';
 import '../notification_screen/notification_screen.dart';
 import '../profile_screen/profile_screen.dart';
-import '../ad_description_screen/ad_description_screen.dart';
 import '../add_post_screen/add_post_screen.dart';
 import '../home_screen/home_bloc.dart';
 import '../home_screen/home_event.dart';
 import '../../models/ad.dart';
 import '../home_screen/home_state.dart';
 
+List<Ad> exampleAds = [
+  Ad(
+    id: '1',
+    userName: 'John Doe',
+    profilePic:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+    address: '5-р сургууль',
+    price: '50000',
+    date: '2024-10-10',
+    shift: '07:30-12:30',
+    additionalInfo: 'Looking for a part-time job.',
+  ),
+  Ad(
+    id: '2',
+    userName: 'Jane Smith',
+    profilePic:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
+    address: '456 Oak Avenue, Town',
+    price: '\$60/hour',
+    date: '2024-10-12',
+    shift: 'Evening Shift',
+    additionalInfo: 'Seeking a weekend gig.',
+  ),
+  Ad(
+    id: '3',
+    userName: 'Emily Johnson',
+    profilePic:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
+    address: '789 Pine Road, Village',
+    price: '\$40/hour',
+    date: '2024-10-15',
+    shift: 'Afternoon Shift',
+    additionalInfo: 'Open for tutoring jobs.',
+  ),
+  Ad(
+    id: '4',
+    userName: 'Chris Lee',
+    profilePic:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+    address: '101 Maple Drive, Suburb',
+    price: '\$55/hour',
+    date: '2024-10-18',
+    shift: 'Night Shift',
+    additionalInfo: 'Available for night shifts.',
+  ),
+  Ad(
+    id: '5',
+    userName: 'Chris Lee',
+    profilePic:
+        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+    address: '101 Maple Drive, Suburb',
+    price: '\$55/hour',
+    date: '2024-10-18',
+    shift: 'Night Shift',
+    additionalInfo: 'Available for night shifts.',
+  ),
+];
+
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HomeBloc()..add(LoadAds()),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.white, // White background
-          elevation: 0,
-          title: Row(
-            children: [
-              IconButton(
-                icon: CircleAvatar(
-                  backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
-                  ), // Temporary profile image
-                ),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ProfileScreen()));
-                },
-              ),
-              Expanded(
-                child: _buildSearchSection(context),
-              ),
-              IconButton(
-                icon: Icon(Icons.notifications, color: Colors.black),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => NotificationScreen()));
-                },
-              ),
-            ],
-          ),
-        ),
-        // Use the scaffold background color from the theme
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        body: Stack(
-          children: [
-            Column(
+    return DefaultTabController(
+      length: 2,
+      child: BlocProvider(
+        create: (_) => HomeBloc()..add(LoadAds()),
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            title: Row(
               children: [
-                _buildTopSection(context), // Banners section
-                Expanded(
-                  child: BlocBuilder<HomeBloc, HomeState>(
-                    builder: (context, state) {
-                      if (state is HomeLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is HomeLoaded) {
-                        return _buildAdList(context, state.ads);
-                      } else if (state is HomeError) {
-                        return Center(child: Text(state.message));
-                      } else {
-                        return Center(child: Text('No ads available.'));
-                      }
-                    },
+                IconButton(
+                  icon: CircleAvatar(
+                    backgroundImage: NetworkImage(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+                    ),
                   ),
-                ),
-              ],
-            ),
-            // Centered FloatingActionButton
-            Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Center(
-                child: FloatingActionButton(
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => AddPostScreen()),
+                      MaterialPageRoute(builder: (context) => ProfileScreen()),
                     );
                   },
-                  backgroundColor: Theme.of(context)
-                      .colorScheme
-                      .primary, // Use primary color from theme
-                  child: Icon(Icons.add, color: Colors.white),
+                ),
+                Expanded(
+                  child: _buildSearchSection(context),
+                ),
+                IconButton(
+                  icon: Icon(Icons.notifications, color: Colors.black),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => NotificationScreen(),
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+            bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(50),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                        color: Colors.grey,
+                        width: 1), // Grey border for inactive tabs
+                  ),
+                ),
+                child: TabBar(
+                  indicator: UnderlineTabIndicator(
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2.0,
+                    ),
+                    insets: EdgeInsets.zero,
+                  ),
+                  labelColor: Theme.of(context).colorScheme.primary,
+                  unselectedLabelColor: Colors.grey,
+                  tabs: const [
+                    Tab(text: 'Эцэг эх'),
+                    Tab(text: 'School Police'),
+                  ],
                 ),
               ),
+            ),
+          ),
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          body: TabBarView(
+            children: [
+              // "Эцэг эх" Tab - Shows ads
+              Stack(
+                children: [
+                  Column(
+                    children: [
+                      _buildTopSection(context),
+                      Expanded(
+                        child: BlocBuilder<HomeBloc, HomeState>(
+                          builder: (context, state) {
+                            if (state is HomeLoading) {
+                              return Center(child: CircularProgressIndicator());
+                            } else if (state is HomeLoaded) {
+                              final adsToShow =
+                                  state.ads.isEmpty ? exampleAds : state.ads;
+                              return _buildAdList(context, adsToShow);
+                            } else if (state is HomeError) {
+                              return _buildAdList(context, exampleAds);
+                            } else {
+                              return _buildAdList(context, exampleAds);
+                            }
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              // "School Police" Tab - Empty for now
+              Center(
+                child: Text(
+                  'No content available for School Police',
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
+              ),
+            ],
+          ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.3),
+                    spreadRadius: 3,
+                    blurRadius: 8,
+                    offset: Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: CircleAvatar(
+                backgroundColor: Theme.of(context).colorScheme.primary,
+                radius: 30,
+                child: IconButton(
+                  icon: Icon(Icons.add, color: Colors.white),
+                  onPressed: () {
+                    _showAddPostBottomSheet(context);
+                  },
+                ),
+              ),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerDocked,
+        ),
+      ),
+    );
+  }
+
+  // Function to show the bottom sheet for adding a post
+  void _showAddPostBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (context) => FractionallySizedBox(
+        heightFactor: 0.9,
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              width: 40,
+              height: 5,
+              decoration: BoxDecoration(
+                color: Colors.grey[300],
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+            Expanded(
+              child: AddPostScreen(),
             ),
           ],
         ),
@@ -102,14 +245,13 @@ class HomeScreen extends StatelessWidget {
       child: TextField(
         decoration: InputDecoration(
           hintText: 'Хайх...',
-          fillColor: Colors.grey[200], // Background color for search bar
+          fillColor: Colors.grey[200],
           filled: true,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(30.0),
             borderSide: BorderSide.none,
           ),
-          prefixIcon:
-              Icon(Icons.search, color: Colors.black), // Search icon color
+          prefixIcon: Icon(Icons.search, color: Colors.black),
         ),
         onChanged: (query) {
           // Search functionality
@@ -121,7 +263,6 @@ class HomeScreen extends StatelessWidget {
   Widget _buildTopSection(BuildContext context) {
     return Column(
       children: [
-        // Ad section with banners or promotional images
         Container(
           height: 150,
           margin: EdgeInsets.symmetric(vertical: 10),
@@ -151,147 +292,8 @@ class HomeScreen extends StatelessWidget {
       itemCount: ads.length,
       itemBuilder: (context, index) {
         final ad = ads[index];
-        return _buildAdCard(context, ad);
+        return AdCard(ad: ad);
       },
-    );
-  }
-
-  // Updated Ad Card to match the desired design
-  Widget _buildAdCard(BuildContext context, Ad ad) {
-    return Card(
-      margin: const EdgeInsets.all(15.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            // Profile Picture
-            CircleAvatar(
-              radius: 30,
-              backgroundImage: NetworkImage(
-                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
-              ),
-            ),
-            const SizedBox(width: 12.0), // Spacing between avatar and details
-
-            // Ad Details Column
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Ad Title and Date
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        ad.address ??
-                            "246 - P СУРГУУЛЬ", // Default title if not provided
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 16),
-                      ),
-                      Text(
-                        ad.date ?? "2024/07/29", // Default date if not provided
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                      height: 5.0), // Spacing between title and other details
-
-                  // Price and Shift Info
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      // Price
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Үнэ / Хөлс',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          const SizedBox(height: 4.0),
-                          Text(
-                            '${ad.price}', // Default price
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                                color: Color(0xFF00204A)),
-                          ),
-                        ],
-                      ),
-
-                      // Shift Time
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Өглөений Ээлж',
-                            style: TextStyle(color: Colors.grey),
-                          ),
-                          const SizedBox(height: 4.0),
-                          Row(
-                            children: [
-                              Icon(Icons.access_time,
-                                  color: Colors.amber, size: 16), // Clock icon
-                              const SizedBox(width: 5.0),
-                              Text(
-                                  ad.shift ??
-                                      "07:30 - 12:30", // Default shift time
-                                  style:
-                                      TextStyle(fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-
-            // Navigation Arrow Icon in a Circle Button
-            Align(
-              alignment: Alignment.bottomRight,
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AdDescriptionScreen(
-                        adId: ad.id,
-                        userName: ad.userName,
-                        profilePic: ad.profilePic,
-                        address: ad.address,
-                        details: "Details about the shift",
-                        price: ad.price,
-                        date: ad.date,
-                        shift: ad.shift,
-                        views: 50,
-                        phoneNumber: "1234567890",
-                      ),
-                    ),
-                  );
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Color(
-                        0xFF00204A), // Use scaffold background color for the arrow button
-                    shape: BoxShape.circle,
-                  ),
-                  padding: EdgeInsets.all(8.0),
-                  child: Icon(
-                    Icons.arrow_forward_ios,
-                    color: Colors.white, // White arrow color
-                    size: 18,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

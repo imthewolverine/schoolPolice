@@ -7,6 +7,7 @@ import 'add_post_state.dart';
 class AddPostScreen extends StatelessWidget {
   final TextEditingController _schoolController = TextEditingController();
   final TextEditingController _districtController = TextEditingController();
+  final TextEditingController _salaryController = TextEditingController();
   final TextEditingController _additionalInfoController =
       TextEditingController();
 
@@ -17,11 +18,15 @@ class AddPostScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          backgroundColor: Colors.white,
-          title: Text('Зар оруулах', style: TextStyle(color: Colors.black)),
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          title: Text(
+            'Зар оруулах',
+            style: TextStyle(color: Theme.of(context).colorScheme.onPrimary),
+          ),
           actions: [
             IconButton(
-              icon: Icon(Icons.close, color: Colors.black),
+              icon: Icon(Icons.close,
+                  color: Theme.of(context).colorScheme.onPrimary),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -53,14 +58,16 @@ class AddPostScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _buildTextField(_schoolController, 'Сургууль',
-                        'Сургуулийн нэр оруулна уу.'),
-                    _buildDropdownField(context, 'Дүүрэг'),
-                    _buildShiftToggle(),
-                    _buildSalarySlider(),
-                    _buildTextField(
+                        'Сургуулийн нэр оруулна уу.', context),
+                    _buildDropdownField(context, state),
+                    _buildShiftToggle(context, state),
+                    _buildTextField(_salaryController, 'Цалин',
+                        'Цалин оруулна уу.', context),
+                    _buildExpandableTextField(
                         _additionalInfoController,
                         'Нэмэлт мэдээлэл',
-                        'Энд дарж нэмэлт мэдээллийг оруулна уу.'),
+                        'Энд дарж нэмэлт мэдээллийг оруулна уу.',
+                        context),
                     Spacer(),
                     _buildSubmitButton(context),
                   ],
@@ -73,48 +80,69 @@ class AddPostScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTextField(
-      TextEditingController controller, String label, String hintText) {
+  Widget _buildTextField(TextEditingController controller, String label,
+      String hintText, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
+      padding: const EdgeInsets.only(bottom: 10.0),
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
           labelText: label,
           hintText: hintText,
-          border: InputBorder.none,
-          filled: true,
-          fillColor: Colors.grey[200],
+          filled: false,
+          fillColor: null,
+          enabledBorder: UnderlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.surface),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
+          ),
         ),
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }
 
-  Widget _buildDropdownField(BuildContext context, String label) {
-    // Dropdown widget for District selection
+  Widget _buildDropdownField(BuildContext context, AddPostState state) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: InputDecorator(
         decoration: InputDecoration(
-          labelText: label,
-          border: InputBorder.none,
-          filled: true,
-          fillColor: Colors.grey[200],
+          labelText: 'Дүүрэг',
+          border: OutlineInputBorder(),
+          filled: false,
+          fillColor: null,
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             isExpanded: true,
-            value: null,
-            hint: Text('Дүүрэг сонгох'),
-            items: <String>['Дүүрэг 1', 'Дүүрэг 2', 'Дүүрэг 3']
-                .map((String value) {
+            value: state.selectedDistrict,
+            hint: Text('Дүүрэг сонгох',
+                style: Theme.of(context).textTheme.bodyMedium),
+            items: <String>[
+              'Багануур',
+              'Багахангай',
+              'Баянгол',
+              'Баянзүрх',
+              'Налайх',
+              'Сонгинохайрхан',
+              'Сүхбаатар',
+              'Хан-Уул',
+              'Чингэлтэй'
+            ].map((String value) {
               return DropdownMenuItem<String>(
                 value: value,
-                child: Text(value),
+                child:
+                    Text(value, style: Theme.of(context).textTheme.bodyMedium),
               );
             }).toList(),
             onChanged: (value) {
-              // Handle district selection
+              if (value != null) {
+                BlocProvider.of<AddPostBloc>(context)
+                    .add(DistrictChanged(value));
+              }
             },
           ),
         ),
@@ -122,30 +150,45 @@ class AddPostScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildShiftToggle() {
+  Widget _buildShiftToggle(BuildContext context, AddPostState state) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Ээлж', style: TextStyle(fontSize: 16)),
+          Text('Ээлж', style: Theme.of(context).textTheme.bodyMedium),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Colors.black,
+                    foregroundColor: state.selectedShift == 'Өглөө'
+                        ? Colors.white
+                        : Colors.black,
+                    backgroundColor: state.selectedShift == 'Өглөө'
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).inputDecorationTheme.fillColor,
                     padding: EdgeInsets.symmetric(vertical: 12),
                   ),
                   onPressed: () {
-                    // Handle morning shift selection
+                    BlocProvider.of<AddPostBloc>(context)
+                        .add(ShiftChanged('Өглөө'));
                   },
                   child: Column(
                     children: [
-                      Text('Өглөө'),
-                      Text('07:30-12:30', style: TextStyle(fontSize: 12)),
+                      Text(
+                        'Өглөө',
+                        style: (state.selectedShift == 'Өглөө'
+                                ? Theme.of(context).textTheme.bodyLarge
+                                : Theme.of(context).textTheme.headlineMedium)
+                            ?.copyWith(fontSize: 16),
+                      ),
+                      Text('07:30-12:30',
+                          style: (state.selectedShift == 'Өглөө'
+                                  ? Theme.of(context).textTheme.bodyLarge
+                                  : Theme.of(context).textTheme.headlineMedium)
+                              ?.copyWith(fontSize: 12)),
                     ],
                   ),
                 ),
@@ -154,17 +197,32 @@ class AddPostScreen extends StatelessWidget {
               Expanded(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.black,
-                    backgroundColor: Colors.grey[300],
+                    foregroundColor: state.selectedShift == 'Өдөр'
+                        ? Colors.white
+                        : Colors.black,
+                    backgroundColor: state.selectedShift == 'Өдөр'
+                        ? Theme.of(context).colorScheme.primary
+                        : Theme.of(context).inputDecorationTheme.fillColor,
                     padding: EdgeInsets.symmetric(vertical: 12),
                   ),
                   onPressed: () {
-                    // Handle day shift selection
+                    BlocProvider.of<AddPostBloc>(context)
+                        .add(ShiftChanged('Өдөр'));
                   },
                   child: Column(
                     children: [
-                      Text('Өдөр'),
-                      Text('12:30-18:30', style: TextStyle(fontSize: 12)),
+                      Text(
+                        'Өдөр',
+                        style: (state.selectedShift == 'Өдөр'
+                                ? Theme.of(context).textTheme.bodyLarge
+                                : Theme.of(context).textTheme.headlineMedium)
+                            ?.copyWith(fontSize: 16),
+                      ),
+                      Text('12:30-18:30',
+                          style: (state.selectedShift == 'Өдөр'
+                                  ? Theme.of(context).textTheme.bodyLarge
+                                  : Theme.of(context).textTheme.headlineMedium)
+                              ?.copyWith(fontSize: 12)),
                     ],
                   ),
                 ),
@@ -176,43 +234,28 @@ class AddPostScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSalarySlider() {
-    double minSalary = 50000;
-    double maxSalary = 120000;
+  Widget _buildExpandableTextField(TextEditingController controller,
+      String label, String hintText, BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Цалин', style: TextStyle(fontSize: 16)),
-          Row(
-            children: [
-              Expanded(
-                child: SliderTheme(
-                  data: SliderThemeData(
-                    trackHeight: 2.0,
-                    activeTrackColor: Colors.black,
-                    inactiveTrackColor: Colors.grey[300],
-                    thumbColor: Colors.black,
-                  ),
-                  child: RangeSlider(
-                    values: RangeValues(minSalary, maxSalary),
-                    min: 50000,
-                    max: 120000,
-                    divisions: 14,
-                    labels: RangeLabels('50K', '120K'),
-                    onChanged: (RangeValues values) {
-                      minSalary = values.start;
-                      maxSalary = values.end;
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(width: 10),
-              Text('${minSalary.toInt()}K - ${maxSalary.toInt()}K'),
-            ],
+      padding: const EdgeInsets.only(bottom: 1.0),
+      child: TextFormField(
+        controller: controller,
+        maxLines: null,
+        decoration: InputDecoration(
+          labelText: label,
+          hintText: hintText,
+          filled: false,
+          fillColor: null,
+          enabledBorder: UnderlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.surface),
           ),
-        ],
+          focusedBorder: UnderlineInputBorder(
+            borderSide:
+                BorderSide(color: Theme.of(context).colorScheme.primary),
+          ),
+        ),
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }
@@ -225,18 +268,18 @@ class AddPostScreen extends StatelessWidget {
             SubmitPostEvent(
               school: _schoolController.text,
               district: _districtController.text,
-              shift: 'Өглөө', // Example shift value
-              time: '07:30-12:30', // Example time
-              salary: '50000-120000', // Example salary
+              shift:
+                  BlocProvider.of<AddPostBloc>(context).state.selectedShift ??
+                      '',
+              salary: _salaryController.text,
               additionalInfo: _additionalInfoController.text,
             ),
           );
         },
         style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-          backgroundColor: Colors.red, // Submit button color
+          padding: EdgeInsets.symmetric(horizontal: 50, vertical: 18),
         ),
-        child: Text('Нийтлэх', style: TextStyle(fontSize: 16)),
+        child: Text('Нийтлэх', style: Theme.of(context).textTheme.bodyLarge),
       ),
     );
   }
