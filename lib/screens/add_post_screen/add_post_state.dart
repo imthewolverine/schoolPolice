@@ -1,14 +1,16 @@
-import 'package:equatable/equatable.dart';
+// add_post_state.dart
 
-// Define all the states for the AddPostBloc
-abstract class AddPostState extends Equatable {
-  const AddPostState();
+abstract class AddPostState {
+  final String? selectedDistrict;
+  final String? selectedShift;
 
-  @override
-  List<Object?> get props => [];
+  AddPostState({this.selectedDistrict, this.selectedShift});
 }
 
-class AddPostInitial extends AddPostState {}
+class AddPostInitial extends AddPostState {
+  AddPostInitial({String? selectedDistrict, String? selectedShift})
+      : super(selectedDistrict: selectedDistrict, selectedShift: selectedShift);
+}
 
 class AddPostLoading extends AddPostState {}
 
@@ -16,9 +18,5 @@ class AddPostSuccess extends AddPostState {}
 
 class AddPostFailure extends AddPostState {
   final String error;
-
   AddPostFailure({required this.error});
-
-  @override
-  List<Object?> get props => [error];
 }

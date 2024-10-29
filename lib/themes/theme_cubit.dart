@@ -22,8 +22,10 @@ class ThemeDataStyle {
       secondary: Color(0xFFFFFF00),
       surfaceContainerHighest: Color.fromRGBO(1, 5, 54, 1),
     ),
-    buttonTheme: const ButtonThemeData(
-      buttonColor: Color.fromRGBO(128, 0, 0, 1),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Color.fromRGBO(128, 0, 0, 1),
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Color.fromRGBO(200, 200, 200, 1),
