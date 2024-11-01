@@ -39,9 +39,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 CircleAvatar(
                     radius: 50,
-                    backgroundColor:
-                        theme.colorScheme.surface // Replace with actual image
-                    ),
+                  backgroundImage: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Text(
                   'Доналд Трамп',

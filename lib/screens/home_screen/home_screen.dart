@@ -206,7 +206,7 @@ class HomeScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Өглөений Ээлж', style: TextStyle(color: Colors.grey)),
+                          Text('Ээлж  ', style: TextStyle(color: Colors.grey)),
                           const SizedBox(height: 4.0),
                           Row(
                             children: [

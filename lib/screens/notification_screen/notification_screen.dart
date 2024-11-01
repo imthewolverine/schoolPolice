@@ -6,7 +6,7 @@ class NotificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Get the theme from context
+    final theme = Theme.of(context);
 
     return DefaultTabController(
       length: 2,
@@ -15,27 +15,24 @@ class NotificationScreen extends StatelessWidget {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back,
-              color: theme.iconTheme.color, // Use icon color from theme
+              color: theme.iconTheme.color,
             ),
             onPressed: () {
-              Navigator.pop(context); // Handle back button press
+              Navigator.pop(context);
             },
           ),
           bottom: TabBar(
-            indicatorColor:
-                theme.colorScheme.primary, // Indicator color from theme
-            labelColor:
-                theme.colorScheme.primary, // Label color for selected tab
-            unselectedLabelColor:
-                theme.colorScheme.primary, // Unselected tab color from theme
+            indicatorColor: theme.colorScheme.primary,
+            labelColor: theme.colorScheme.primary,
+            unselectedLabelColor: theme.colorScheme.primary,
             tabs: const [
               Tab(text: 'Баталгаажсан хүсэлт'),
               Tab(text: 'Ирсэн хүсэлт'),
             ],
           ),
-          backgroundColor: theme
-              .appBarTheme.backgroundColor, // App bar background from theme
+          backgroundColor: theme.appBarTheme.backgroundColor,
         ),
+        backgroundColor: Colors.white, // Set the Scaffold background to white
         body: TabBarView(
           children: [
             // "Баталгаажсан хүсэлт" Tab
@@ -45,11 +42,9 @@ class NotificationScreen extends StatelessWidget {
               itemBuilder: (context, index) {
                 return const NotificationCard(
                   title: 'Баталгаажсан',
-                  message:
-                      '246 - р сургуулийн school police хүсэлт баталгаажсан байна.',
+                  message: '246 - р сургуулийн school police хүсэлт баталгаажсан байна.',
                   time: '9:41 AM',
-                  imageUrl:
-                      'https://via.placeholder.com/150', // Placeholder image URL
+                  imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s', // Updated image URL
                 );
               },
             ),
@@ -58,8 +53,7 @@ class NotificationScreen extends StatelessWidget {
             Center(
               child: Text(
                 'No incoming requests.',
-                style:
-                    theme.textTheme.headlineMedium, // Caption color from theme
+                style: theme.textTheme.headlineMedium,
               ),
             ),
           ],
