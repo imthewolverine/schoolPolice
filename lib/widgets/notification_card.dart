@@ -5,6 +5,7 @@ class NotificationCard extends StatelessWidget {
   final String message;
   final String time;
   final String imageUrl;
+  final VoidCallback onTap; // Add an onTap callback
 
   const NotificationCard({
     Key? key,
@@ -12,40 +13,44 @@ class NotificationCard extends StatelessWidget {
     required this.message,
     required this.time,
     required this.imageUrl,
+    required this.onTap, // Receive onTap function
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context); // Get the theme from the context
+    final theme = Theme.of(context);
 
     return Card(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
-      color: theme.colorScheme.surface, // Use the card color from the theme
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(imageUrl),
-        ),
-        title: Text(
-          title,
-          style: theme.textTheme.headlineMedium?.copyWith(
-            fontWeight: FontWeight.bold,
-            fontSize: 16, // Normal font size for the title
+      color: theme.colorScheme.surface,
+      child: InkWell(
+        onTap: onTap, // Use the onTap function
+        child: ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(imageUrl),
           ),
-        ),
-        subtitle: Text(
-          message,
-          style: theme.textTheme.bodyMedium?.copyWith(
-            fontSize: 14, // Normal font size for the message
+          title: Text(
+            title,
+            style: theme.textTheme.headlineMedium?.copyWith(
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
-        ),
-        trailing: Text(
-          time,
-          style: const TextStyle(
-            fontSize: 12, // Normal font size for the time
-            color: Colors.grey,
+          subtitle: Text(
+            message,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontSize: 14,
+            ),
+          ),
+          trailing: Text(
+            time,
+            style: const TextStyle(
+              fontSize: 12,
+              color: Colors.grey,
+            ),
           ),
         ),
       ),
