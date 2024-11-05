@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:school_police/screens/settings_screen/settings_screen.dart';
+import 'package:school_police/widgets/school_police_history_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -31,7 +33,12 @@ class ProfileScreen extends StatelessWidget {
                       icon: Icon(Icons.settings,
                           color: theme.colorScheme.onPrimary),
                       onPressed: () {
-                        // Handle settings
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SettingsScreen(),
+                          ),
+                        );
                       },
                     ),
                   ],
@@ -63,7 +70,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(width: 4),
                     Text(
-                      '₮50k',
+                      '₮50000',
                       style: theme.textTheme.bodyLarge?.copyWith(
                         color: Colors.yellow,
                       ),
@@ -144,10 +151,9 @@ class ProfileScreen extends StatelessWidget {
                   ListTile(
                     title: Text(
                       'Мэдээлэл шинэчлэх',
-                      style: theme.textTheme.bodyLarge?.copyWith(
-                        color: theme.colorScheme
-                            .onSurface, // Text color based on surface
-                      ),
+                      style: theme.textTheme.headlineMedium
+                          ?.copyWith(fontSize: 20 // Text color based on surface
+                              ),
                     ),
                     trailing: Icon(Icons.arrow_forward_ios,
                         color: theme.colorScheme.onSurface),
@@ -159,7 +165,37 @@ class ProfileScreen extends StatelessWidget {
 
                   // "School Police түүх" section with cards
                   _buildSectionHeader('School Police түүх', theme),
-                  _buildHorizontalCardList(theme),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        SchoolPoliceHistoryCard(
+                          schoolName: '3-р сургууль',
+                          rating: 4,
+                        ),
+                        const SizedBox(width: 10),
+                        SchoolPoliceHistoryCard(
+                          schoolName: '3-р сургууль',
+                          rating: 4,
+                        ),
+                        const SizedBox(width: 10),
+                        SchoolPoliceHistoryCard(
+                          schoolName: '3-р сургууль',
+                          rating: 4,
+                        ),
+                        const SizedBox(width: 10),
+                        SchoolPoliceHistoryCard(
+                          schoolName: '3-р сургууль',
+                          rating: 4,
+                        ),
+                        const SizedBox(width: 10),
+                        SchoolPoliceHistoryCard(
+                          schoolName: '3-р сургууль',
+                          rating: 4,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -175,7 +211,7 @@ class ProfileScreen extends StatelessWidget {
       child: Text(
         title,
         style: theme.textTheme.headlineMedium?.copyWith(
-          color: theme.colorScheme.onSurface, // Use surface color for text
+          fontSize: 20, // Use surface color for text
         ),
       ),
     );
