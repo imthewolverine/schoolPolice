@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:convert';
 
 class WeatherModel {
   final double currentTemp;

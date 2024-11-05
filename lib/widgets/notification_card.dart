@@ -11,7 +11,7 @@ class NotificationCard extends StatelessWidget {
     required this.title,
     required this.message,
     required this.time,
-    required this.imageUrl,
+    required this.imageUrl, required Null Function() onTap,
   }) : super(key: key);
 
   @override

@@ -21,6 +21,7 @@ class ThemeDataStyle {
       primary: Color.fromRGBO(1, 5, 54, 1),
       secondary: Color(0xFFFFFF00),
       surfaceContainerHighest: Color.fromRGBO(1, 5, 54, 1),
+      tertiary: Color.fromRGBO(128, 0, 0, 1),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -36,18 +37,19 @@ class ThemeDataStyle {
       ),
     ),
     textTheme: const TextTheme(
-      headlineLarge: TextStyle(
-        color: Color(0xFF010536), // Dark blue color for text fields
-      ),
-      headlineMedium: TextStyle(
-        color: Colors.black, // Black color for text fields
-      ),
-      headlineSmall: TextStyle(
-        color: Colors.grey, // Grey color for text fields
-      ),
-      bodyLarge: TextStyle(
-        color: Colors.white, // White color for text fields
-      ),
+      displayLarge: TextStyle(color: Color(0xFF010536)), // Replaces headline1
+      displayMedium: TextStyle(color: Colors.black87),    // Replaces headline2
+      displaySmall: TextStyle(color: Colors.black54),     // Replaces headline3
+      headlineMedium: TextStyle(color: Colors.black),     // Replaces headline4
+      headlineSmall: TextStyle(color: Colors.grey),       // Replaces headline5
+      titleLarge: TextStyle(color: Colors.black),         // Replaces headline6
+      titleMedium: TextStyle(color: Colors.black87),      // Replaces subtitle1
+      titleSmall: TextStyle(color: Colors.black54),       // Replaces subtitle2
+      bodyLarge: TextStyle(color: Colors.black87),        // Replaces bodyText1
+      bodyMedium: TextStyle(color: Colors.black54),       // Replaces bodyText2
+      bodySmall: TextStyle(color: Colors.black38),        // Replaces caption
+      labelLarge: TextStyle(color: Colors.white),         // Replaces button
+      labelSmall: TextStyle(color: Colors.black45),       // Replaces overline
     ),
   );
 
@@ -59,8 +61,7 @@ class ThemeDataStyle {
     colorScheme: ColorScheme.dark(
       surface: Colors.blue.shade900, // Darker surface color for dark mode
       primary: const Color(0xFF00204A), // Dark blue primary color
-      secondary:
-          Colors.blueAccent, // Accent color for buttons like Facebook/Google
+      secondary: Colors.blueAccent, // Accent color for buttons like Facebook/Google
       onPrimary: Colors.white, // Text color on primary elements
       onSecondary: Colors.black, // Text color on secondary elements
     ),
@@ -74,16 +75,26 @@ class ThemeDataStyle {
     inputDecorationTheme: InputDecorationTheme(
       fillColor: Colors.blueGrey.shade800, // Dark grey for input fields
       filled: true,
-      hintStyle:
-          const TextStyle(color: Colors.white54), // Placeholder text color
+      hintStyle: const TextStyle(color: Colors.white54), // Placeholder text color
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide.none,
       ),
     ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white), // White text for dark mode
-      bodyMedium: TextStyle(color: Colors.white70),
+      displayLarge: TextStyle(color: Colors.white70),       // Replaces headline1
+      displayMedium: TextStyle(color: Colors.white60),       // Replaces headline2
+      displaySmall: TextStyle(color: Colors.white54),        // Replaces headline3
+      headlineMedium: TextStyle(color: Colors.white),        // Replaces headline4
+      headlineSmall: TextStyle(color: Colors.white60),       // Replaces headline5
+      titleLarge: TextStyle(color: Colors.white),            // Replaces headline6
+      titleMedium: TextStyle(color: Colors.white70),         // Replaces subtitle1
+      titleSmall: TextStyle(color: Colors.white60),          // Replaces subtitle2
+      bodyLarge: TextStyle(color: Colors.white),             // Replaces bodyText1
+      bodyMedium: TextStyle(color: Colors.white70),          // Replaces bodyText2
+      bodySmall: TextStyle(color: Colors.white54),           // Replaces caption
+      labelLarge: TextStyle(color: Colors.black),            // Replaces button
+      labelSmall: TextStyle(color: Colors.white38),          // Replaces overline
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

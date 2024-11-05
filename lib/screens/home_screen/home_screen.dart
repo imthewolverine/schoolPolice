@@ -270,7 +270,7 @@ class HomeScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             children: [
               _buildAdBanner(
-                  'https://popartmediagroup.co.uk/wp-content/uploads/2019/12/santaclauscoke-944x531.jpg.webp'),
+                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
               _buildAdBanner(
                   'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
             ],

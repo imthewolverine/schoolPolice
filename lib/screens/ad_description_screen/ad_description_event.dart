@@ -15,3 +15,11 @@ class SubmitJobRequest extends AdDescriptionEvent {
   @override
   List<Object> get props => [adId];
 }
+class LaunchPhone extends AdDescriptionEvent {
+  final String adId;
+
+  const LaunchPhone(this.adId);
+
+  @override
+  List<Object> get props => [adId];
+}

@@ -35,7 +35,7 @@ class AdCard extends StatelessWidget {
                     children: [
                       Expanded(
                         child: Text(
-                          ad.address ?? "246 - P СУРГУУЛЬ",
+                          ad.address,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 16,
@@ -63,7 +63,7 @@ class AdCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(5.0),
                     ),
                     child: Text(
-                      ad.date ?? "2024/07/29",
+                      ad.date,
                       style: TextStyle(color: Colors.grey[800], fontSize: 12),
                     ),
                   ),
@@ -83,7 +83,7 @@ class AdCard extends StatelessWidget {
                           ),
                           const SizedBox(height: 4.0),
                           Text(
-                            '${ad.price ?? "50,000"} ₮',
+                            '${ad.price} ₮',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 18,
@@ -108,7 +108,7 @@ class AdCard extends StatelessWidget {
                                   color: Colors.amber, size: 16),
                               const SizedBox(width: 5.0),
                               Text(
-                                ad.shift ?? "07:30 - 12:30",
+                                ad.shift,
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 14,
@@ -132,17 +132,8 @@ class AdCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => AdDescriptionScreen(
-                      adId: ad.id,
-                      userName: ad.userName,
-                      profilePic: ad.profilePic,
-                      address: ad.address,
-                      details: "Details about the shift",
-                      price: ad.price,
-                      date: ad.date,
-                      shift: ad.shift,
-                      views: 50,
-                      phoneNumber: "1234567890",
-                      requestCount: 0,
+                      ad: ad,  // Pass the Ad object directly
+                      phoneNumber: "1234567890",  // Replace with actual phone number if available
                     ),
                   ),
                 );

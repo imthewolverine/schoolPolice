@@ -23,16 +23,31 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         _ads.add(
           Ad(
             id: '1',
-            userName: 'Example User',
+            userName: 'Gigi',
             profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
             address: '24-р сургууль',
-            additionalInfo: 'This is an example ad to demonstrate functionality.',
+            additionalInfo: '''
+    This job requires a highly skilled and experienced individual who is passionate about working with students. The successful candidate will be responsible for ensuring safe and timely transportation of students to and from school, managing communications with parents, and coordinating schedules with school authorities.
+
+    Key Responsibilities:
+    - Safely transport students along the assigned route.
+    - Communicate effectively with parents and school staff.
+    - Ensure vehicle safety and perform regular maintenance checks.
+
+    Preferred Qualifications:
+    - Minimum of 3 years of driving experience.
+    - Good communication skills.
+    - Experience working with children is a plus.
+
+    Working hours are flexible but will generally align with school hours. We’re looking for someone who is committed, reliable, and ready to be a part of our team in providing excellent service to our school community.
+  ''',
             price: '50,000',
             date: '2024-10-28',
             shift: 'Өглөө',
             views: 15,
             requestCount: 5,
           ),
+
         );
       }
 
