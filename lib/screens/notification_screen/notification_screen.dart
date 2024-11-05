@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_police/screens/profile_request_screen/profile_request_screen.dart';
+import 'package:school_police/screens/time_record_screen/time_record_screen.dart';
 import 'package:school_police/widgets/notification_card.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -47,7 +48,7 @@ class NotificationScreen extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileRequestScreen(),
+                        builder: (context) => TimeRecordScreen(adId: '1'),
                       ),
                     );
                   },
