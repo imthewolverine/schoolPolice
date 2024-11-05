@@ -1,0 +1,248 @@
+[33mcommit 5039c83c1e361e2e6d7ff10bde14f7fd7ff621dc[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mbaigali[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 07fe399 b573c4c
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Tue Nov 5 23:25:02 2024 +0800
+
+    notification screen conflict fixed
+
+[33mcommit b573c4c442923cea5654d2ec4552bc45d26228c4[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Tue Nov 5 23:17:13 2024 +0800
+
+    profile request etc
+
+D	lib/lib/models/ad.dart
+M	lib/screens/notification_screen/notification_screen.dart
+A	lib/screens/profile_request_screen/profile_request_bloc.dart
+A	lib/screens/profile_request_screen/profile_request_event.dart
+A	lib/screens/profile_request_screen/profile_request_screen.dart
+A	lib/screens/profile_request_screen/profile_request_state.dart
+M	lib/screens/profile_screen/profile_screen.dart
+A	lib/screens/settings_screen/settings_bloc.dart
+A	lib/screens/settings_screen/settings_event.dart
+A	lib/screens/settings_screen/settings_screen.dart
+A	lib/screens/settings_screen/settings_state.dart
+M	lib/widgets/ad_card.dart
+M	lib/widgets/notification_card.dart
+A	lib/widgets/school_police_history_card.dart
+
+[33mcommit 07fe399996263e8c1815646b4648605a208e9d82[m[33m ([m[1;31morigin/baigali[m[33m)[m
+Merge: 9af2aad eb68c90
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Fri Nov 1 11:04:16 2024 +0800
+
+    Resolved merge conflict in home_screen.dart
+
+[33mcommit 9af2aad76daf0f88bd032801d52a5dbf66015ec7[m
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Fri Nov 1 10:59:48 2024 +0800
+
+    Saving changes before pulling from main
+
+M	lib/screens/home_screen/home_bloc.dart
+M	lib/screens/home_screen/home_screen.dart
+M	lib/screens/notification_screen/notification_screen.dart
+M	lib/screens/profile_screen/profile_screen.dart
+
+[33mcommit eb68c9075e8e750a49e8f043779e2afecb10d662[m
+Merge: 6327069 1d31c9c
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Tue Oct 29 12:47:18 2024 +0800
+
+    conflict biti hunii zasaj bgaa filetai oroldood blda
+
+[33mcommit 1d31c9c4aa7f5408a0857b826f062c744ad69a74[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Tue Oct 29 12:19:18 2024 +0800
+
+    homescreen, add_post_screen, ad_card
+
+M	lib/screens/add_post_screen/add_post_bloc.dart
+M	lib/screens/add_post_screen/add_post_event.dart
+M	lib/screens/add_post_screen/add_post_screen.dart
+M	lib/screens/add_post_screen/add_post_state.dart
+M	lib/screens/home_screen/home_screen.dart
+M	lib/themes/theme_cubit.dart
+A	lib/widgets/ad_card.dart
+
+[33mcommit 6327069764b749bcbcace933949974557930ed52[m
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Mon Oct 28 10:49:16 2024 +0800
+
+    ad_description screen zassan
+
+M	lib/models/ad.dart
+M	lib/screens/ad_description_screen/ad_description_screen.dart
+M	lib/screens/home_screen/home_screen.dart
+
+[33mcommit 1e83204342175632d3a241f6bd4e4c91cb4fde13[m
+Merge: dc71e13 56ac9d7
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Fri Oct 25 12:18:58 2024 +0800
+
+    conflict fixed
+
+[33mcommit 56ac9d7f1e3f60de5947d9b091ea5532039360b9[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Fri Oct 25 12:06:52 2024 +0800
+
+    medq zuer prettierees bolj bh shig bn
+
+M	lib/screens/home_screen/home_screen.dart
+
+[33mcommit dc71e139eba8047a01f82f789fcef7036d956382[m[33m ([m[1;31morigin/batla[m[33m)[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Fri Oct 25 11:32:23 2024 +0800
+
+    add post
+
+M	lib/screens/add_post_screen/add_post_screen.dart
+M	lib/screens/home_screen/home_screen.dart
+
+[33mcommit 09b07033fefe772aad36c98a2f1793845306c668[m
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Fri Oct 25 00:30:39 2024 +0800
+
+    homescreen
+
+M	lib/models/ad.dart
+M	lib/screens/ad_description_screen/ad_description_screen.dart
+M	lib/screens/add_post_screen/add_post_bloc.dart
+M	lib/screens/add_post_screen/add_post_screen.dart
+D	lib/screens/counter_screen/counter_bloc.dart
+D	lib/screens/counter_screen/counter_event.dart
+D	lib/screens/counter_screen/counter_screen.dart
+D	lib/screens/counter_screen/counter_state.dart
+M	lib/screens/home_screen/home_bloc.dart
+M	lib/screens/home_screen/home_screen.dart
+M	lib/screens/login_screen/login_screen.dart
+M	pubspec.lock
+
+[33mcommit 10c56f90dd7f6a4c025999c6cd12f8f8ab40a0a5[m
+Merge: 77e9969 7b27396
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Sat Oct 19 14:54:38 2024 +0800
+
+    B
+    Merge branch 'main' of https://github.com/imthewolverine/schoolPolice
+
+[33mcommit 7b273961499c3f0b1c47ff04d513f0d75bcff3ff[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Tue Oct 15 11:08:25 2024 +0800
+
+    profile screen added zasvarlah hrgtei
+
+A	assets/images/logo_noword.gif
+A	assets/images/logo_noword.png
+A	assets/images/logo_white_noword.gif
+A	assets/images/logo_white_noword.png
+M	lib/screens/profile_screen/profile_screen.dart
+
+[33mcommit d243834c2b3333e6c2986a5070d176a82a0a916f[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Mon Oct 14 05:33:45 2024 +0800
+
+    notification screen ui,
+
+M	lib/screens/notification_screen/notification_screen.dart
+M	lib/themes/theme_cubit.dart
+A	lib/widgets/notification_card.dart
+
+[33mcommit de76e3d02c5ba54df4fec6f8c0fc47df8846e392[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Mon Oct 14 04:41:55 2024 +0800
+
+    forgot password added
+
+A	assets/images/logo_white.png
+M	lib/screens/login_screen/login_screen.dart
+A	lib/screens/reset_password_screen/reset_password_bloc.dart
+A	lib/screens/reset_password_screen/reset_password_event.dart
+A	lib/screens/reset_password_screen/reset_password_screen.dart
+A	lib/screens/reset_password_screen/reset_password_state.dart
+A	lib/widgets/forgot_password_dialog.dart
+
+[33mcommit 9adc85666e2d49b19298e12db6eca99af5cf95cf[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Sun Oct 13 06:50:40 2024 +0800
+
+    login signup done 99%
+
+M	lib/screens/login_screen/login_screen.dart
+M	lib/screens/signup_screen/signup_bloc.dart
+M	lib/screens/signup_screen/signup_event.dart
+M	lib/screens/signup_screen/signup_screen.dart
+M	lib/screens/signup_screen/signup_state.dart
+
+[33mcommit 77e99695b2dc5178139f2eaa6552074155c7c278[m
+Merge: ded4ae6 d576338
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Fri Oct 11 13:47:45 2024 +0800
+
+    Merge remote-tracking branch 'origin/main'
+    
+    # Conflicts:
+    #       lib/screens/login_screen/login_screen.dart
+
+[33mcommit d576338dd312d4a9deb79b85aa0b06581f259271[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Fri Oct 11 13:46:53 2024 +0800
+
+    theme change, login fix
+
+A	assets/images/logo.png
+M	lib/main.dart
+M	lib/screens/login_screen/login_bloc.dart
+M	lib/screens/login_screen/login_event.dart
+M	lib/screens/login_screen/login_screen.dart
+M	lib/screens/login_screen/login_state.dart
+M	lib/screens/signup_screen/signup_screen.dart
+M	lib/themes/theme_cubit.dart
+
+[33mcommit ded4ae6f2bdbb1b53e538c15e0025f02fbd20e2e[m
+Merge: 0c50a36 e1ecc00
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Fri Oct 11 13:34:34 2024 +0800
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit e1ecc005c8a6c8d23be8e3e0b24339ef47d94904[m
+Author: Batlkhagva <batlhagva15@gmail.com>
+Date:   Tue Oct 8 15:08:53 2024 +0800
+
+    profile, notification, schoolPolice screen
+
+M	lib/screens/home_screen/home_screen.dart
+A	lib/screens/notification_screen/notification_screen.dart
+A	lib/screens/profile_screen/profile_screen.dart
+A	lib/screens/school_police_screen/school_police_screen.dart
+M	pubspec.lock
+M	pubspec.yaml
+
+[33mcommit 0c50a367e00db91d4fc10d6e38dff77354ad9628[m
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Wed Oct 2 20:29:19 2024 +0800
+
+    .
+
+M	lib/main.dart
+M	lib/screens/add_post_screen/add_post_screen.dart
+M	lib/screens/home_screen/home_bloc.dart
+M	lib/screens/home_screen/home_screen.dart
+M	lib/screens/login_screen/login_screen.dart
+M	lib/services/database_helper.dart
+
+[33mcommit 6f878ff8c5a152845469c68e52f8539e006822b5[m
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Wed Oct 2 16:01:18 2024 +0800
+
+    database-helper.dart nemsen zar nemdeg bolson
+
+A	devtools_options.yaml
+A	lib/lib/models/ad.dart
+
+[33mcommit c2b9bcf9536972a66bd2864df5b8927f38a2e439[m
+Author: Baigali <baigalitsts@gmail.com>
+Date:   Wed Oct 2 16:00:59 2024 +0800
+
+    database-helper.dart nemsen zar nemdeg bol
