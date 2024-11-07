@@ -5,7 +5,6 @@ import '../../models/ad.dart';
 import '../ad_description_screen/ad_description_bloc.dart';
 import '../ad_description_screen/ad_description_event.dart';
 import '../ad_description_screen/ad_description_state.dart';
-import 'dart:math';
 
 class AdDescriptionScreen extends StatefulWidget {
   final Ad ad;
@@ -68,10 +67,12 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                     ),
                     child: Container(
                       color: Colors.white,
-                      padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
                       child: BlocProvider(
                         create: (context) => AdDescriptionBloc(),
-                        child: BlocListener<AdDescriptionBloc, AdDescriptionState>(
+                        child:
+                            BlocListener<AdDescriptionBloc, AdDescriptionState>(
                           listener: (context, state) {
                             if (state is JobRequestLoading) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -79,7 +80,9 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                               );
                             } else if (state is JobRequestSuccess) {
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Request sent successfully!')),
+                                SnackBar(
+                                    content:
+                                        Text('Request sent successfully!')),
                               );
                             } else if (state is JobRequestError) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -96,7 +99,8 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                                 children: [
                                   Text(
                                     widget.ad.address,
-                                    style: TextStyle(fontSize: 25, color: Colors.black),
+                                    style: TextStyle(
+                                        fontSize: 25, color: Colors.black),
                                   ),
                                   Image.asset(
                                     'assets/icons/google-maps.png', // Path to your PNG asset
@@ -111,32 +115,44 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                                 children: [
                                   Icon(Icons.visibility, color: Colors.grey),
                                   SizedBox(width: 3),
-                                  Text('${widget.ad.views}', style: TextStyle(color: Colors.black54)),
+                                  Text('${widget.ad.views}',
+                                      style: TextStyle(color: Colors.black54)),
                                 ],
                               ),
                               const SizedBox(height: 20),
                               // Price and Shift Info
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
                                   Container(
-                                    width: MediaQuery.of(context).size.width * 0.45,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.4,
                                     child: _buildInfoCard(
                                       'Үнэ / Хөлс',
                                       widget.ad.price + '₮',
                                       icon: Icons.attach_money,
-                                      iconColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-                                      iconBackground: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                      iconColor: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceContainerHighest,
+                                      iconBackground: Theme.of(context)
+                                          .colorScheme
+                                          .surfaceContainerHighest,
                                     ),
                                   ),
                                   Container(
-                                    width: MediaQuery.of(context).size.width * 0.4,
+                                    width: MediaQuery.of(context).size.width *
+                                        0.45,
                                     child: _buildInfoCard(
                                       'Хугацаа',
                                       widget.ad.shift,
                                       icon: Icons.access_time,
-                                      iconColor: Theme.of(context).colorScheme.tertiary,
-                                      iconBackground: Theme.of(context).colorScheme.tertiary,
+                                      iconColor: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
+                                      iconBackground: Theme.of(context)
+                                          .colorScheme
+                                          .tertiary,
                                     ),
                                   ),
                                 ],
@@ -147,7 +163,10 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                                 alignment: Alignment.centerLeft,
                                 child: Text(
                                   'Дэлгэрэнгүй',
-                                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black87),
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black87),
                                 ),
                               ),
                               const SizedBox(height: 8),
@@ -162,7 +181,12 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                                   children: [
                                     Text(
                                       isExpanded ? "See Less" : "See More",
-                                      style: TextStyle(color: Theme.of(context).colorScheme.surfaceContainerHighest, fontSize: 14, fontWeight: FontWeight.bold),
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .surfaceContainerHighest,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -179,35 +203,40 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                               ),
                               const SizedBox(height: 25),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   // Хүсэлт Count with Icon
-                                  Column (
+                                  Column(
                                     children: [
                                       Row(
                                         children: [
-                                          Icon(Icons.group, color: Colors.orange),
+                                          Icon(Icons.group,
+                                              color: Colors.orange),
                                           const SizedBox(width: 4),
                                           Text(
                                             'Хүсэлт: ${widget.ad.requestCount}',
-                                            style: TextStyle(fontSize: 16, color: Colors.black54),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black54),
                                           ),
                                         ],
                                       ),
                                       // Date
                                       const SizedBox(height: 16),
                                       Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
                                             'Огноо: ${widget.ad.date}',
-                                            style: TextStyle(fontSize: 16, color: Colors.black54),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black54),
                                           ),
                                         ],
                                       ),
-
                                     ],
-
                                   ),
                                   const SizedBox(width: 5),
                                   // Action Buttons
@@ -217,22 +246,27 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                                       _buildActionButton(
                                         context,
                                         label: 'Хүсэлт илгээх',
-                                        color: Theme.of(context).colorScheme.tertiary,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .tertiary,
                                         icon: Icons.group,
                                         onPressed: () {
                                           context.read<AdDescriptionBloc>().add(
-                                            SubmitJobRequest(widget.ad.id),
-                                          );
+                                                SubmitJobRequest(widget.ad.id),
+                                              );
                                         },
                                       ),
                                       const SizedBox(height: 10),
                                       _buildActionButton(
                                         context,
                                         label: 'Холбоо барих',
-                                        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surfaceContainerHighest,
                                         icon: Icons.phone,
                                         onPressed: () {
-                                          _launchPhoneDialer(widget.phoneNumber);
+                                          _launchPhoneDialer(
+                                              widget.phoneNumber);
                                         },
                                       ),
                                     ],
@@ -266,7 +300,10 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
   }
 
   // Helper widget to build the styled info card with custom icon and colors
-  Widget _buildInfoCard(String label, String value, {required IconData icon, required Color iconColor, required Color iconBackground}) {
+  Widget _buildInfoCard(String label, String value,
+      {required IconData icon,
+      required Color iconColor,
+      required Color iconBackground}) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -291,7 +328,7 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
               child: Icon(
                 icon,
                 color: Colors.white,
-                size: 20,
+                size: 16,
               ),
             ),
           ),
@@ -301,12 +338,18 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
             children: [
               Text(
                 label,
-                style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w500),
+                style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500),
               ),
               const SizedBox(height: 4),
               Text(
                 value,
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.black),
               ),
             ],
           ),
@@ -320,7 +363,7 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-        color:  Colors.grey[100],
+        color: Colors.grey[100],
         borderRadius: BorderRadius.circular(15),
       ),
       child: Text(
@@ -331,7 +374,11 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
   }
 
   // Helper widget to build an action button with an optional icon
-  Widget _buildActionButton(BuildContext context, {required String label, required Color color, IconData? icon, required VoidCallback onPressed}) {
+  Widget _buildActionButton(BuildContext context,
+      {required String label,
+      required Color color,
+      IconData? icon,
+      required VoidCallback onPressed}) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),

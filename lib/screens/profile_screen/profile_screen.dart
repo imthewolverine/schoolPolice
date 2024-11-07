@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:school_police/screens/settings_screen/settings_screen.dart';
+import 'package:school_police/widgets/ad_profile_card.dart';
 import 'package:school_police/widgets/school_police_history_card.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -45,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
                   elevation: 0, // Remove shadow from AppBar
                 ),
                 CircleAvatar(
-                    radius: 50,
+                  radius: 50,
                   backgroundImage: NetworkImage(
                     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
                   ),
@@ -144,7 +145,32 @@ class ProfileScreen extends StatelessWidget {
 
                   // "Миний зарууд" section with cards
                   _buildSectionHeader('Миний зарууд', theme),
-                  _buildHorizontalCardList(theme),
+                  const SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        AdProfileCard(
+                          schoolName: '3-р сургууль',
+                          date: '2024-07-07',
+                        ),
+                        SizedBox(width: 10),
+                        AdProfileCard(
+                          schoolName: '3-р сургууль',
+                          date: '2024-07-07',
+                        ),
+                        SizedBox(width: 10),
+                        AdProfileCard(
+                          schoolName: '3-р сургууль',
+                          date: '2024-07-07',
+                        ),
+                        SizedBox(width: 10),
+                        AdProfileCard(
+                          schoolName: '3-р сургууль',
+                          date: '2024-07-07',
+                        )
+                      ],
+                    ),
+                  ),
                   const SizedBox(height: 16),
 
                   // "Мэдээлэл шинэчлэх" section
