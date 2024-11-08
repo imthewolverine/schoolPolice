@@ -17,26 +17,19 @@ class ThemeDataStyle {
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
-      surface: Color(0xFFF6F6F6),
-      background: Color(0xFFFFFFFF),
-      primary: Color(0xFF040434),
-      secondary: Color(0xFFffff00),
+      surface: Color.fromRGBO(230, 230, 230, 1),
+      primary: Color.fromRGBO(1, 5, 54, 1),
+      secondary: Color(0xFFFFFF00),
       tertiary: Color(0xFFffd531),
       surfaceContainerHighest: Color.fromRGBO(1, 5, 54, 1),
     ),
-    appBarTheme: const AppBarTheme(
-      backgroundColor: Color(0xFFF6F6F6), // TabBar color
-      foregroundColor: Colors.black,
-    ),
-    scaffoldBackgroundColor: Color(0xFFFFFFFF),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Color.fromRGBO(128, 0, 0, 1),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: Color(0xFFE2E2E2), // Tag color
-      //fillColor: Color.fromRGBO(200, 200, 200, 1),
+      fillColor: Color.fromRGBO(200, 200, 200, 1),
       filled: true,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
@@ -44,19 +37,18 @@ class ThemeDataStyle {
       ),
     ),
     textTheme: const TextTheme(
-      displayLarge: TextStyle(color: Color(0xFF010536)),
-      displayMedium: TextStyle(color: Colors.black87),
-      displaySmall: TextStyle(color: Colors.black54),
-      headlineMedium: TextStyle(color: Colors.black),
-      headlineSmall: TextStyle(color: Colors.grey),
-      titleLarge: TextStyle(color: Colors.black),
-      titleMedium: TextStyle(color: Colors.black87),
-      titleSmall: TextStyle(color: Colors.black54),
-      bodyLarge: TextStyle(color: Colors.white),
-      bodyMedium: TextStyle(color: Colors.black54),
-      bodySmall: TextStyle(color: Colors.black38),
-      labelLarge: TextStyle(color: Colors.white),
-      labelSmall: TextStyle(color: Colors.black45),
+      headlineLarge: TextStyle(
+        color: Color(0xFF010536), // Dark blue color for text fields
+      ),
+      headlineMedium: TextStyle(
+        color: Colors.black, // Black color for text fields
+      ),
+      headlineSmall: TextStyle(
+        color: Colors.grey, // Grey color for text fields
+      ),
+      bodyLarge: TextStyle(
+        color: Colors.white, // White color for text fields
+      ),
     ),
   );
 
@@ -64,41 +56,43 @@ class ThemeDataStyle {
   static ThemeData dark = ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    scaffoldBackgroundColor: const Color(0xFF00204A),
+    scaffoldBackgroundColor: const Color(0xFF00204A), // Dark blue background
     colorScheme: ColorScheme.dark(
-      surface: Colors.blue.shade900,
-      primary: const Color(0xFF00204A),
-      secondary: Colors.blueAccent,
-      onPrimary: Colors.white,
-      onSecondary: Colors.black,
+      surface: Colors.blue.shade900, // Darker surface color for dark mode
+      primary: const Color(0xFF00204A), // Dark blue primary color
+      secondary:
+          Colors.blueAccent, // Accent color for buttons like Facebook/Google
+      onPrimary: Colors.white, // Text color on primary elements
+      onSecondary: Colors.black, // Text color on secondary elements
     ),
     buttonTheme: ButtonThemeData(
-      buttonColor: const Color(0xFFFFD700),
+      buttonColor: const Color(0xFFFFD700), // Bright yellow buttons
       textTheme: ButtonTextTheme.primary,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: Colors.blueGrey.shade800,
+      fillColor: Colors.blueGrey.shade800, // Dark grey for input fields
       filled: true,
-      hintStyle: const TextStyle(color: Colors.white54),
+      hintStyle:
+          const TextStyle(color: Colors.white54), // Placeholder text color
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),
         borderSide: BorderSide.none,
       ),
     ),
     textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: Colors.white),
+      bodyLarge: TextStyle(color: Colors.white), // White text for dark mode
       bodyMedium: TextStyle(color: Colors.white70),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black,
-        backgroundColor: const Color(0xFFFFD700),
+        foregroundColor: Colors.black, // Button text color
+        backgroundColor: const Color(0xFFFFD700), // Bright yellow background
         textStyle: const TextStyle(fontWeight: FontWeight.bold),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(8), // Rounded button shape
         ),
       ),
     ),
