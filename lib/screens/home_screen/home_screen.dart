@@ -19,7 +19,21 @@ List<Ad> exampleAds = [
     price: '50000',
     date: '2024-10-10',
     shift: '07:30-12:30',
-    additionalInfo: 'Looking for a part-time job.',
+    additionalInfo: '''
+    This job requires a highly skilled and experienced individual who is passionate about working with students. The successful candidate will be responsible for ensuring safe and timely transportation of students to and from school, managing communications with parents, and coordinating schedules with school authorities.
+
+    Key Responsibilities:
+    - Safely transport students along the assigned route.
+    - Communicate effectively with parents and school staff.
+    - Ensure vehicle safety and perform regular maintenance checks.
+
+    Preferred Qualifications:
+    - Minimum of 3 years of driving experience.
+    - Good communication skills.
+    - Experience working with children is a plus.
+
+    Working hours are flexible but will generally align with school hours. We’re looking for someone who is committed, reliable, and ready to be a part of our team in providing excellent service to our school community.
+  ''',
   ),
   Ad(
     id: '2',

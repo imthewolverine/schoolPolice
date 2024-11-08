@@ -25,7 +25,7 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
   String _totalWorkedTimeText = "00:00";
   late DateTime _arrivalTime;
   late DateTime _departureTime;
-  LatLng _adLocation = LatLng(47.920355462040476, 106.9279488799336); // Ad location
+  LatLng _adLocation = LatLng(47.916646, 106.912154); // Ad location
   LatLng? _userLocation;
 
   @override
@@ -49,6 +49,9 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
 
     final Distance distance = Distance();
     double distanceInMeters = distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
+
+    print(_userLocation);
+    print(_adLocation);
 
     if (distanceInMeters <= 700) {
       setState(() {
