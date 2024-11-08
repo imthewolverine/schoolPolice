@@ -17,18 +17,26 @@ class ThemeDataStyle {
     useMaterial3: true,
     brightness: Brightness.light,
     colorScheme: const ColorScheme.light(
-      surface: Color.fromRGBO(230, 230, 230, 1),
-      primary: Color.fromRGBO(1, 5, 54, 1),
-      secondary: Color(0xFFFFFF00),
+      surface: Color(0xFFF6F6F6),
+      background: Color(0xFFFFFFFF),
+      primary: Color(0xFF040434),
+      secondary: Color(0xFFffff00),
+      tertiary: Color(0xFFffd531),
       surfaceContainerHighest: Color.fromRGBO(1, 5, 54, 1),
     ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFFF6F6F6), // TabBar color
+      foregroundColor: Colors.black,
+    ),
+    scaffoldBackgroundColor: Color(0xFFFFFFFF),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: Color.fromRGBO(128, 0, 0, 1),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: Color.fromRGBO(200, 200, 200, 1),
+      fillColor: Color(0xFFE2E2E2), // Tag color
+      //fillColor: Color.fromRGBO(200, 200, 200, 1),
       filled: true,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(10),

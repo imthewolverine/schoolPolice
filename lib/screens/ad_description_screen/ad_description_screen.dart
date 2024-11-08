@@ -25,7 +25,7 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xFF010536),
+      backgroundColor: Theme.of(context).colorScheme.primary,
       body: SafeArea(
         child: Stack(
           children: [
@@ -378,6 +378,7 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
       {required String label,
       required Color color,
       IconData? icon,
+        Color? textColor,
       required VoidCallback onPressed}) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(

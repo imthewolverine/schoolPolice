@@ -5,7 +5,6 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'time_record_bloc.dart';
 import 'time_record_event.dart';
-import 'time_record_state.dart';
 
 class TimeRecordScreen extends StatefulWidget {
   final String adId;
@@ -25,7 +24,7 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
   String _totalWorkedTimeText = "00:00";
   late DateTime _arrivalTime;
   late DateTime _departureTime;
-  LatLng _adLocation = LatLng(47.916646, 106.912154); // Ad location
+  LatLng _adLocation = LatLng(47.916646, 106.912154);
   LatLng? _userLocation;
 
   @override
@@ -43,15 +42,9 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
   }
 
   void _checkArrival() async {
-    if (_isArrived) return;
-
-    if (_userLocation == null) return;
-
+    if (_isArrived || _userLocation == null) return;
     final Distance distance = Distance();
     double distanceInMeters = distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
-
-    print(_userLocation);
-    print(_adLocation);
 
     if (distanceInMeters <= 700) {
       setState(() {
@@ -70,7 +63,6 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
 
   void _checkDeparture() async {
     if (!_isArrived || _isDeparted) return;
-
     final Distance distance = Distance();
     double distanceInMeters = distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
 
@@ -99,50 +91,56 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
     return BlocProvider(
       create: (_) => TimeRecordBloc(),
       child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-          title: Text("Time Record", style: textTheme.headlineSmall?.copyWith(
-    color: Theme.of(context).colorScheme.onPrimary, // Set color within TextStyle
-    )),
-          leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.white),
-            onPressed: () {
-              Navigator.pop(context);
-            },
-          ),
-        ),
-        body: Column(
+        body: Stack(
           children: [
-            // Timer Display
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: Colors.orange, width: 2),
+            Column(
+              children: [
+                SizedBox(height: 60), // Space for the back button
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          spreadRadius: 3,
+                          blurRadius: 6,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(Icons.timer, color: Colors.orange),
+                        Text(
+                          _arrivalTimeText,
+                          style: textTheme.titleMedium?.copyWith(color: Colors.black),
+                        ),
+                        Text("Ирц", style: textTheme.bodySmall),
+                        Text(_departureTimeText, style: textTheme.titleMedium),
+                      ],
+                    ),
+                  ),
                 ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.timer, color: Colors.orange),
-                    SizedBox(width: 8),
-                    Text(_arrivalTimeText, style: textTheme.titleMedium?.copyWith(color: Colors.black)),
-                  ],
-                ),
-              ),
-            ),
-
-            // Map Section
-            Expanded(
-              child: Stack(
-                children: [
-                  Container(
+                SizedBox(height: 20),
+                Expanded(
+                  child: Container(
                     margin: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.05),
+                          spreadRadius: 5,
+                          blurRadius: 10,
+                          offset: Offset(0, 4),
+                        ),
+                      ],
                     ),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(20),
@@ -163,7 +161,7 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                                 color: Colors.blue.withOpacity(0.3),
                                 borderStrokeWidth: 2,
                                 borderColor: Colors.blue,
-                                radius: 100, // Fixed radius in meters
+                                radius: 100,
                               ),
                             ],
                           ),
@@ -179,11 +177,7 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                                       shape: BoxShape.circle,
                                       color: Colors.green,
                                     ),
-                                    child: Icon(
-                                      Icons.circle,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
+                                    child: Icon(Icons.circle, color: Colors.white, size: 15),
                                   ),
                                 ),
                               ],
@@ -199,11 +193,7 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                                     shape: BoxShape.circle,
                                     color: Colors.blue,
                                   ),
-                                  child: Icon(
-                                    Icons.circle,
-                                    color: Colors.white,
-                                    size: 15,
-                                  ),
+                                  child: Icon(Icons.circle, color: Colors.white, size: 15),
                                 ),
                               ),
                             ],
@@ -212,56 +202,63 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _buildTimeInfo(_arrivalTimeText, "Ирсэн", textTheme),
+                          _buildTimeInfo(_departureTimeText, "Явсан", textTheme),
+                          _buildTimeInfo("00:03", "Хоцорсон", textTheme),
+                          _buildTimeInfo(_totalWorkedTimeText, "Нийт", textTheme),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.tertiary,
+                              minimumSize: Size(150, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: _isArrived ? null : _checkArrival,
+                            child: Text("Ирсэн", style: textTheme.labelLarge?.copyWith(color: Colors.white)),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                              minimumSize: Size(150, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            onPressed: _isDeparted ? null : _checkDeparture,
+                            child: Text("Явсан", style: textTheme.labelLarge?.copyWith(color: Colors.white)),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-
-            // Information Row and Buttons
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
-              color: Colors.white,
-              child: Column(
-                children: [
-                  // Time Info Row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _buildTimeInfo(_arrivalTimeText, "Ирсэн", textTheme),
-                      _buildTimeInfo(_departureTimeText, "Явсан", textTheme),
-                      _buildTimeInfo("00:03", "Хоцорсон", textTheme),
-                      _buildTimeInfo(_totalWorkedTimeText, "Нийт", textTheme),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  // Action Buttons Row
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.tertiary,
-                          minimumSize: Size(180, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: _isArrived ? null : _checkArrival,
-                        child: Text("Ирлээ", style: textTheme.labelLarge?.copyWith(color: Colors.white)),
-                      ),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
-                          minimumSize: Size(180, 50),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                        ),
-                        onPressed: _isDeparted ? null : _checkDeparture,
-                        child: Text("Явлаа", style: textTheme.labelLarge?.copyWith(color: Colors.white)),
-                      ),
-                    ],
-                  ),
-                ],
+            Positioned(
+              top: 20,
+              left: 10,
+              child: IconButton(
+                icon: Icon(Icons.arrow_back, color: Colors.black87),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
             ),
           ],

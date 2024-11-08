@@ -8,77 +8,35 @@ import '../home_screen/home_bloc.dart';
 import '../home_screen/home_event.dart';
 import '../../models/ad.dart';
 import '../home_screen/home_state.dart';
+import '../school_police_home_screen/school_police_home_screen.dart';
+
 
 List<Ad> exampleAds = [
   Ad(
     id: '1',
     userName: 'John Doe',
     profilePic:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
     address: '5-р сургууль',
     price: '50000',
     date: '2024-10-10',
     shift: '07:30-12:30',
     additionalInfo: '''
     This job requires a highly skilled and experienced individual who is passionate about working with students. The successful candidate will be responsible for ensuring safe and timely transportation of students to and from school, managing communications with parents, and coordinating schedules with school authorities.
-
-    Key Responsibilities:
-    - Safely transport students along the assigned route.
-    - Communicate effectively with parents and school staff.
-    - Ensure vehicle safety and perform regular maintenance checks.
-
-    Preferred Qualifications:
-    - Minimum of 3 years of driving experience.
-    - Good communication skills.
-    - Experience working with children is a plus.
-
-    Working hours are flexible but will generally align with school hours. We’re looking for someone who is committed, reliable, and ready to be a part of our team in providing excellent service to our school community.
   ''',
   ),
   Ad(
     id: '2',
     userName: 'Jane Smith',
     profilePic:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
     address: '456 Oak Avenue, Town',
     price: '\$60/hour',
     date: '2024-10-12',
     shift: 'Evening Shift',
     additionalInfo: 'Seeking a weekend gig.',
   ),
-  Ad(
-    id: '3',
-    userName: 'Emily Johnson',
-    profilePic:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
-    address: '789 Pine Road, Village',
-    price: '\$40/hour',
-    date: '2024-10-15',
-    shift: 'Afternoon Shift',
-    additionalInfo: 'Open for tutoring jobs.',
-  ),
-  Ad(
-    id: '4',
-    userName: 'Chris Lee',
-    profilePic:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
-    address: '101 Maple Drive, Suburb',
-    price: '\$55/hour',
-    date: '2024-10-18',
-    shift: 'Night Shift',
-    additionalInfo: 'Available for night shifts.',
-  ),
-  Ad(
-    id: '5',
-    userName: 'Chris Lee',
-    profilePic:
-        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
-    address: '101 Maple Drive, Suburb',
-    price: '\$55/hour',
-    date: '2024-10-18',
-    shift: 'Night Shift',
-    additionalInfo: 'Available for night shifts.',
-  ),
+  // Add more example ads here if needed
 ];
 
 class HomeScreen extends StatelessWidget {
@@ -90,7 +48,7 @@ class HomeScreen extends StatelessWidget {
         create: (_) => HomeBloc()..add(LoadAds()),
         child: Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFFF6F6F6),
             elevation: 0,
             title: Row(
               children: [
@@ -167,7 +125,7 @@ class HomeScreen extends StatelessWidget {
                               return Center(child: CircularProgressIndicator());
                             } else if (state is HomeLoaded) {
                               final adsToShow =
-                                  state.ads.isEmpty ? exampleAds : state.ads;
+                              state.ads.isEmpty ? exampleAds : state.ads;
                               return _buildAdList(context, adsToShow);
                             } else if (state is HomeError) {
                               return _buildAdList(context, exampleAds);
@@ -181,13 +139,8 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ],
               ),
-              // "School Police" Tab - Empty for now
-              Center(
-                child: Text(
-                  'No content available for School Police',
-                  style: Theme.of(context).textTheme.headlineMedium,
-                ),
-              ),
+              // "School Police" Tab - Displaying SchoolPoliceScreen
+              SchoolPoliceHomeScreen(parentSchool: '5-р сургууль',),
             ],
           ),
           floatingActionButton: Padding(
@@ -217,7 +170,7 @@ class HomeScreen extends StatelessWidget {
             ),
           ),
           floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );
@@ -268,7 +221,7 @@ class HomeScreen extends StatelessWidget {
           prefixIcon: Icon(Icons.search, color: Colors.black),
         ),
         onChanged: (query) {
-          // Search functionality
+          context.read<HomeBloc>().add(SearchAds(query));
         },
       ),
     );
