@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:school_police/screens/profile_request_screen/profile_request_screen.dart';
+import 'package:school_police/screens/time_record_screen/time_record_screen.dart';
 import 'package:school_police/widgets/notification_card.dart';
 
 class NotificationScreen extends StatelessWidget {
-  const NotificationScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -33,35 +32,29 @@ class NotificationScreen extends StatelessWidget {
           ),
           backgroundColor: theme.appBarTheme.backgroundColor,
         ),
-        backgroundColor: Colors.white, // Set the Scaffold background to white
+        backgroundColor: Colors.white,
         body: TabBarView(
           children: [
-            // Баталгаажсан хүсэлт Tab
             ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: 10,
               itemBuilder: (context, index) {
                 return NotificationCard(
                   title: 'Баталгаажсан',
-                  message:
-                      '246 - р сургуулийн school police хүсэлт баталгаажсан байна.',
+                  message: '246 - р сургуулийн school police хүсэлт баталгаажсан байна.',
                   time: '9:41 AM',
-                  imageUrl:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s', // Updated image URL
+                  imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
                   onTap: () {
-                    // Navigate to TimeRecordScreen
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ProfileRequestScreen(),
+                        builder: (context) => TimeRecordScreen(adId: '1'),
                       ),
                     );
                   },
                 );
               },
             ),
-
-            // Ирсэн хүсэлт Tab
             ListView.builder(
               padding: const EdgeInsets.all(16),
               itemCount: 10,
@@ -72,7 +65,6 @@ class NotificationScreen extends StatelessWidget {
                   time: '10:30 AM',
                   imageUrl: 'https://via.placeholder.com/150',
                   onTap: () {
-                    // Navigate to ProfileRequestScreen
                     Navigator.push(
                       context,
                       MaterialPageRoute(

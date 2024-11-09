@@ -12,6 +12,8 @@ class AuthService {
       password: '123',
       email: 'batlhagva15@gmail.com',
       phoneNumber: 80553609,
+      role: UserRole.schoolPolice,
+      assignedSchools: ['5-р сургууль'],
     ),
     User(
       username: 'not admin',
@@ -19,7 +21,9 @@ class AuthService {
       lastName: 'batla',
       password: '321',
       email: 'batlhagva15@gmail.com',
-      phoneNumber: 90553609,
+      phoneNumber: 9055360,
+      role: UserRole.parent,
+      assignedSchools: ['5-р сургууль'],
     ),
   ];
 
@@ -28,7 +32,7 @@ class AuthService {
 
     try {
       final user = _users.firstWhere(
-        (user) => user.username == username && user.password == password,
+            (user) => user.username == username && user.password == password,
       );
       final token = 'dummy_token_for_${user.username}';
       await _secureStorage.saveToken(token);

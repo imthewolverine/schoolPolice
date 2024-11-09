@@ -20,6 +20,7 @@ class ThemeDataStyle {
       surface: Color.fromRGBO(230, 230, 230, 1),
       primary: Color.fromRGBO(1, 5, 54, 1),
       secondary: Color(0xFFFFFF00),
+      tertiary: Color(0xFFffd531),
       surfaceContainerHighest: Color.fromRGBO(1, 5, 54, 1),
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(

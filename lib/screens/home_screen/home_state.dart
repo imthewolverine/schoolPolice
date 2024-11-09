@@ -1,7 +1,5 @@
 import 'package:equatable/equatable.dart';
-
 import '../../models/ad.dart';
-
 
 class HomeState extends Equatable {
   const HomeState();
@@ -16,13 +14,13 @@ class HomeLoading extends HomeState {}
 
 class HomeLoaded extends HomeState {
   final List<Ad> ads;
+  final bool isSearchResult;
 
-  const HomeLoaded({required this.ads}); // Explicitly naming the parameter
+  const HomeLoaded({required this.ads, this.isSearchResult = false});
 
   @override
-  List<Object> get props => [ads];
+  List<Object> get props => [ads, isSearchResult];
 }
-
 
 class HomeError extends HomeState {
   final String message;
@@ -32,4 +30,3 @@ class HomeError extends HomeState {
   @override
   List<Object> get props => [message];
 }
-

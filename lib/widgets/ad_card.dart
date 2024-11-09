@@ -132,17 +132,8 @@ class AdCard extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => AdDescriptionScreen(
-                      adId: ad.id,
-                      userName: ad.userName,
-                      profilePic: ad.profilePic,
-                      address: ad.address,
-                      details: "Details about the shift",
-                      price: ad.price,
-                      date: ad.date,
-                      shift: ad.shift,
-                      views: 50,
-                      phoneNumber: "1234567890",
-                      requestCount: 0,
+                      ad: ad,  // Pass the Ad object directly
+                      phoneNumber: "1234567890",  // Replace with actual phone number if available
                     ),
                   ),
                 );

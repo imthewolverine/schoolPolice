@@ -5,7 +5,7 @@ class NotificationCard extends StatelessWidget {
   final String message;
   final String time;
   final String imageUrl;
-  final VoidCallback onTap; // Add an onTap callback
+  final VoidCallback onTap;
 
   const NotificationCard({
     Key? key,
@@ -13,7 +13,7 @@ class NotificationCard extends StatelessWidget {
     required this.message,
     required this.time,
     required this.imageUrl,
-    required this.onTap, // Receive onTap function
+    required this.onTap,
   }) : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class NotificationCard extends StatelessWidget {
       ),
       color: theme.colorScheme.surface,
       child: InkWell(
-        onTap: onTap, // Use the onTap function
+        onTap: onTap,
         child: ListTile(
           leading: CircleAvatar(
             backgroundImage: NetworkImage(imageUrl),
