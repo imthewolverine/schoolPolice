@@ -61,16 +61,20 @@ class SchoolPoliceHomeScreen extends StatelessWidget {
                                 // Name and Rating Row
                                 Row(
                                   children: [
-                                    Text(
-                                      '${police.firstName} ${police.lastName}',
-                                      style: TextStyle(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.black87,
+                                    Expanded(
+                                      child: Text(
+                                        '${police.firstName} ${police.lastName}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.black87,
+                                        ),
+                                        overflow: TextOverflow.ellipsis, // Prevents overflow
                                       ),
                                     ),
                                     SizedBox(width: 10),
                                     Row(
+                                      mainAxisSize: MainAxisSize.min, // Prevents row expansion
                                       children: List.generate(
                                         5,
                                             (starIndex) => Icon(
@@ -131,8 +135,10 @@ class SchoolPoliceHomeScreen extends StatelessWidget {
                               ],
                             ),
                           ),
+                          SizedBox(width: 8),
                           IconButton(
                             icon: Icon(Icons.phone, color: Colors.blueAccent),
+                            constraints: BoxConstraints(maxWidth: 36), // Limits width
                             onPressed: () {
                               // Implement call action
                             },
