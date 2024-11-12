@@ -5,9 +5,25 @@ import 'package:school_police/screens/home_screen/home_event.dart';
 import 'package:school_police/screens/login_screen/login_bloc.dart';
 import 'package:school_police/screens/login_screen/login_screen.dart';
 import 'package:school_police/services/auth_service.dart';
+import 'package:school_police/services/fcm_service.dart'; // Import FCM service
 import 'package:school_police/themes/theme_cubit.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+  ); // Initialize Firebase
+
+  final fcmService = FCMService(); // Instantiate the FCM service
+
+  // Retrieve the FCM token
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print("FCM Token: $fcmToken"); // Log the token for testing
+
+  // Send the FCM token to the backend
+  //await fcmService.sendTokenToBackend(fcmToken);
+
   final authService = AuthService();
   runApp(MyApp(
     authService: authService,
@@ -30,7 +46,7 @@ class MyApp extends StatelessWidget {
       child: BlocBuilder<ThemeCubit, ThemeData>(
         builder: (context, theme) {
           return MaterialApp(
-            title: 'Flutter Theme Toggle',
+            title: 'School Police',
             theme: theme,
             home: LoginScreen(),
           );
