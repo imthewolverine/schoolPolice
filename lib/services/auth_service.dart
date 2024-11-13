@@ -1,44 +1,41 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:school_police/models/user_model.dart';
 import 'package:school_police/services/secure_storage_service.dart';
 
 class AuthService {
   final SecureStorageService _secureStorage = SecureStorageService();
 
-  final List<User> _users = [
-    User(
-      username: 'admin',
-      firstName: 'batla',
-      lastName: 'lhagva',
-      password: '123',
-      email: 'batlhagva15@gmail.com',
-      phoneNumber: 80553609,
-      role: UserRole.schoolPolice,
-      assignedSchools: ['5-р сургууль'],
-    ),
-    User(
-      username: 'not admin',
-      firstName: 'lhagva',
-      lastName: 'batla',
-      password: '321',
-      email: 'batlhagva15@gmail.com',
-      phoneNumber: 9055360,
-      role: UserRole.parent,
-      assignedSchools: ['5-р сургууль'],
-    ),
-  ];
+  final String baseUrl =
+      'https://backend-api-491759785783.asia-northeast1.run.app/';
 
-  Future<String?> authenticateUser(String username, String password) async {
-    await Future.delayed(const Duration(seconds: 1));
-
+  Future<String?> authenticateUser(
+      String usernameOrEmail, String password) async {
     try {
-      final user = _users.firstWhere(
-            (user) => user.username == username && user.password == password,
+      final response = await http.post(
+        Uri.parse('$baseUrl/login'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'usernameOrEmail': usernameOrEmail, // Updated key to match API format
+          'password': password,
+        }),
       );
-      final token = 'dummy_token_for_${user.username}';
-      await _secureStorage.saveToken(token);
-      await _secureStorage.saveUser(user);
-      return token;
+
+      if (response.statusCode == 200) {
+        final responseBody = jsonDecode(response.body);
+
+        // Assuming the API returns a `token` and `user` object in the response
+        final token = responseBody['token'];
+
+        // Save token and user in secure storage
+        await _secureStorage.saveToken(token);
+
+        return token;
+      } else {
+        return null; // Authentication failed
+      }
     } catch (e) {
+      print('Error during authentication: $e');
       return null;
     }
   }

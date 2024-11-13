@@ -5,6 +5,7 @@ import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart';
 import 'time_record_bloc.dart';
 import 'time_record_event.dart';
+import 'package:latlong2/latlong.dart';
 
 class TimeRecordScreen extends StatefulWidget {
   final String adId;
@@ -44,7 +45,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
   void _checkArrival() async {
     if (_isArrived || _userLocation == null) return;
     final Distance distance = Distance();
-    double distanceInMeters = distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
+    double distanceInMeters =
+        distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
 
     if (distanceInMeters <= 700) {
       setState(() {
@@ -56,7 +58,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
       BlocProvider.of<TimeRecordBloc>(context).add(ArriveEvent());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("You are not within 700 meters of the location.")),
+        SnackBar(
+            content: Text("You are not within 700 meters of the location.")),
       );
     }
   }
@@ -64,7 +67,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
   void _checkDeparture() async {
     if (!_isArrived || _isDeparted) return;
     final Distance distance = Distance();
-    double distanceInMeters = distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
+    double distanceInMeters =
+        distance.as(LengthUnit.Meter, _userLocation!, _adLocation);
 
     if (distanceInMeters <= 700) {
       setState(() {
@@ -73,13 +77,15 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
         _departureTimeText = "${_departureTime.hour}:${_departureTime.minute}";
 
         final workedDuration = _departureTime.difference(_arrivalTime);
-        _totalWorkedTimeText = "${workedDuration.inHours}ц ${workedDuration.inMinutes.remainder(60)}мин";
+        _totalWorkedTimeText =
+            "${workedDuration.inHours}ц ${workedDuration.inMinutes.remainder(60)}мин";
       });
 
       BlocProvider.of<TimeRecordBloc>(context).add(DepartEvent());
     } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("You are not within 700 meters of the location.")),
+        SnackBar(
+            content: Text("You are not within 700 meters of the location.")),
       );
     }
   }
@@ -118,7 +124,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                         Icon(Icons.timer, color: Colors.orange),
                         Text(
                           _arrivalTimeText,
-                          style: textTheme.titleMedium?.copyWith(color: Colors.black),
+                          style: textTheme.titleMedium
+                              ?.copyWith(color: Colors.black),
                         ),
                         Text("Ирц", style: textTheme.bodySmall),
                         Text(_departureTimeText, style: textTheme.titleMedium),
@@ -132,7 +139,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                     margin: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
-                      color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                      color:
+                          Theme.of(context).colorScheme.surfaceContainerHighest,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.black.withOpacity(0.05),
@@ -151,7 +159,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                         ),
                         children: [
                           TileLayer(
-                            urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                            urlTemplate:
+                                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
                             subdomains: ['a', 'b', 'c'],
                           ),
                           CircleLayer(
@@ -177,7 +186,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                                       shape: BoxShape.circle,
                                       color: Colors.green,
                                     ),
-                                    child: Icon(Icons.circle, color: Colors.white, size: 15),
+                                    child: Icon(Icons.circle,
+                                        color: Colors.white, size: 15),
                                   ),
                                 ),
                               ],
@@ -193,7 +203,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                                     shape: BoxShape.circle,
                                     color: Colors.blue,
                                   ),
-                                  child: Icon(Icons.circle, color: Colors.white, size: 15),
+                                  child: Icon(Icons.circle,
+                                      color: Colors.white, size: 15),
                                 ),
                               ),
                             ],
@@ -205,7 +216,8 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                 ),
                 SizedBox(height: 10),
                 Container(
-                  padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 16.0),
                   color: Colors.white,
                   child: Column(
                     children: [
@@ -213,9 +225,11 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           _buildTimeInfo(_arrivalTimeText, "Ирсэн", textTheme),
-                          _buildTimeInfo(_departureTimeText, "Явсан", textTheme),
+                          _buildTimeInfo(
+                              _departureTimeText, "Явсан", textTheme),
                           _buildTimeInfo("00:03", "Хоцорсон", textTheme),
-                          _buildTimeInfo(_totalWorkedTimeText, "Нийт", textTheme),
+                          _buildTimeInfo(
+                              _totalWorkedTimeText, "Нийт", textTheme),
                         ],
                       ),
                       const SizedBox(height: 10),
@@ -224,25 +238,32 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
                         children: [
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.tertiary,
+                              backgroundColor:
+                                  Theme.of(context).colorScheme.tertiary,
                               minimumSize: Size(150, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
                             onPressed: _isArrived ? null : _checkArrival,
-                            child: Text("Ирсэн", style: textTheme.labelLarge?.copyWith(color: Colors.white)),
+                            child: Text("Ирсэн",
+                                style: textTheme.labelLarge
+                                    ?.copyWith(color: Colors.white)),
                           ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                              backgroundColor: Theme.of(context)
+                                  .colorScheme
+                                  .surfaceContainerHighest,
                               minimumSize: Size(150, 50),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
                             onPressed: _isDeparted ? null : _checkDeparture,
-                            child: Text("Явсан", style: textTheme.labelLarge?.copyWith(color: Colors.white)),
+                            child: Text("Явсан",
+                                style: textTheme.labelLarge
+                                    ?.copyWith(color: Colors.white)),
                           ),
                         ],
                       ),
