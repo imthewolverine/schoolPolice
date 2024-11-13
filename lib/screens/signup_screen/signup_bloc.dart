@@ -1,8 +1,13 @@
+import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:http/http.dart' as http;
 import 'signup_event.dart';
 import 'signup_state.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
+  final String baseUrl =
+      'https://backend-api-491759785783.asia-northeast1.run.app/';
+
   SignupBloc() : super(const SignupState()) {
     on<SignupUsernameChanged>(_onUsernameChanged);
     on<SignupEmailChanged>(_onEmailChanged);
@@ -42,71 +47,30 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     emit(state.copyWith(obscureConfirmPassword: !event.obscureConfirmPassword));
   }
 
-  Future<bool> _isEmailValid(String email) async {
-    final regex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
-    return regex.hasMatch(email);
-  }
-
-  Future<bool> _isEmailUnique(String email) async {
-    //api gaasaa avch shalgana
-    return true;
-  }
-
-  Future<bool> _isPhoneNumberUnique(int phoneNumber) async {
-    //api gaasaa avch shalgana
-    return true;
-  }
-
-  bool _isPasswordValid(String password) {
-    final regex = RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{6,}$');
-    return regex.hasMatch(password);
-  }
-
-  void _onSignupSubmitted(
+  Future<void> _onSignupSubmitted(
       SignupSubmitted event, Emitter<SignupState> emit) async {
     emit(state.copyWith(isSubmitting: true));
-    if (state.username.isEmpty) {
+
+    // Validate inputs locally
+    if (state.username.isEmpty ||
+        state.email.isEmpty ||
+        state.password.isEmpty) {
       emit(state.copyWith(
         isSubmitting: false,
         isSuccess: false,
         isFailure: true,
-        errorMessage: 'Хэрэглэгчийн нэр хоосон байж болохгүй',
+        errorMessage: 'Fields cannot be empty',
       ));
-      emit(state.copyWith(isFailure: false));
       return;
     }
 
-    if (await _isEmailValid(state.email) == false) {
+    if (!await _isEmailValid(state.email)) {
       emit(state.copyWith(
         isSubmitting: false,
         isSuccess: false,
         isFailure: true,
-        errorMessage: 'Буруу email хаяг',
+        errorMessage: 'Invalid email format',
       ));
-      emit(state.copyWith(isFailure: false));
-      return;
-    }
-
-    if (await _isEmailUnique(state.email) == false) {
-      emit(state.copyWith(
-        isSubmitting: false,
-        isSuccess: false,
-        isFailure: true,
-        errorMessage: 'Бүртгэлтэй email хаяг байна',
-      ));
-      emit(state.copyWith(isFailure: false));
-      return;
-    }
-
-    if (_isPasswordValid(state.password) == false) {
-      emit(state.copyWith(
-        isSubmitting: false,
-        isSuccess: false,
-        isFailure: true,
-        errorMessage:
-            'Нууц үг хамгийн багадаа 6 тэмдэгтээс бүрдэх бөгөөд том, жижиг үсэг, тоо, тэмдэг зэргийг агуулсан байх ёстой',
-      ));
-      emit(state.copyWith(isFailure: false));
       return;
     }
 
@@ -115,18 +79,57 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         isSubmitting: false,
         isSuccess: false,
         isFailure: true,
-        errorMessage: 'Нууц үг тохирохгүй байна',
+        errorMessage: 'Passwords do not match',
       ));
-      emit(state.copyWith(isFailure: false));
       return;
     }
 
-    await Future.delayed(const Duration(seconds: 2));
+    // Send data to backend
+    try {
+      final response = await http.post(
+        Uri.parse('$baseUrl/register'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+        },
+        body: jsonEncode(<String, dynamic>{
+          'name': state.username,
+          'email': state.email,
+          'password': state.password,
+          'address': 'Default address', // Default value
+          'phoneNumber': '0000000000', // Default value
+          'rating': 0, // Default value
+          'totalWorkCount': 0, // Default value
+          'userid': 123 // Default value
+        }),
+      );
 
-    emit(state.copyWith(
-      isSubmitting: false,
-      isSuccess: true,
-      isFailure: false,
-    ));
+      if (response.statusCode == 200) {
+        emit(state.copyWith(
+          isSubmitting: false,
+          isSuccess: true,
+          isFailure: false,
+        ));
+      } else {
+        final errorResponse = json.decode(response.body);
+        emit(state.copyWith(
+          isSubmitting: false,
+          isSuccess: false,
+          isFailure: true,
+          errorMessage: errorResponse['message'] ?? 'Registration failed',
+        ));
+      }
+    } catch (e) {
+      emit(state.copyWith(
+        isSubmitting: false,
+        isSuccess: false,
+        isFailure: true,
+        errorMessage: 'Failed to connect to the server',
+      ));
+    }
+  }
+
+  Future<bool> _isEmailValid(String email) async {
+    final regex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    return regex.hasMatch(email);
   }
 }
