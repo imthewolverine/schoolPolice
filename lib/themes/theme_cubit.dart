@@ -16,8 +16,9 @@ class ThemeDataStyle {
   static ThemeData light = ThemeData(
     useMaterial3: true,
     brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
     colorScheme: const ColorScheme.light(
-      surface: Color.fromRGBO(230, 230, 230, 1),
+      surface: Color(0xFFf5f5f5),
       primary: Color.fromRGBO(1, 5, 54, 1),
       secondary: Color(0xFFFFFF00),
       tertiary: Color(0xFFffd531),

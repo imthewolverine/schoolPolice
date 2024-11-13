@@ -29,260 +29,230 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
       body: SafeArea(
         child: Stack(
           children: [
-            SingleChildScrollView(
-              child: Column(
-                children: [
-                  const SizedBox(height: 50), // Space for the back arrow
-                  // Profile Picture and Username
-                  Column(
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(3),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: Colors.white, width: 3),
-                        ),
-                        child: CircleAvatar(
-                          radius: 50,
-                          backgroundImage: NetworkImage(widget.ad.profilePic),
-                        ),
+            Column(
+              children: [
+                const SizedBox(height: 50), // Space for the back arrow
+                // Profile Picture and Username
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.all(3),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.white, width: 3),
                       ),
-                      const SizedBox(height: 5),
-                      Text(
-                        widget.ad.userName,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                        ),
+                      child: CircleAvatar(
+                        radius: 50,
+                        backgroundImage: NetworkImage(widget.ad.profilePic),
                       ),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  // White Rectangle Content with Rounded Corners
-                  ClipRRect(
+                    ),
+                    const SizedBox(height: 5),
+                    Text(
+                      widget.ad.userName,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 10),
+                // White Rectangle Content with Expanded to fill remaining space
+                Expanded(
+                  child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
                     child: Container(
                       color: Colors.white,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
-                      child: BlocProvider(
-                        create: (context) => AdDescriptionBloc(),
-                        child:
-                            BlocListener<AdDescriptionBloc, AdDescriptionState>(
-                          listener: (context, state) {
-                            if (state is JobRequestLoading) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text('Sending request...')),
-                              );
-                            } else if (state is JobRequestSuccess) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                    content:
-                                        Text('Request sent successfully!')),
-                              );
-                            } else if (state is JobRequestError) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(content: Text(state.message)),
-                              );
-                            }
-                          },
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              // Address Row
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 30),
+                        child: BlocProvider(
+                          create: (context) => AdDescriptionBloc(),
+                          child: BlocListener<AdDescriptionBloc, AdDescriptionState>(
+                            listener: (context, state) {
+                              if (state is JobRequestLoading) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Sending request...')),
+                                );
+                              } else if (state is JobRequestSuccess) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text('Request sent successfully!')),
+                                );
+                              } else if (state is JobRequestError) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(state.message)),
+                                );
+                              }
+                            },
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
-                                  Text(
-                                    widget.ad.address,
-                                    style: TextStyle(
-                                        fontSize: 25, color: Colors.black),
-                                  ),
-                                  Image.asset(
-                                    'assets/icons/google-maps.png', // Path to your PNG asset
-                                    width: 25, // Set width as needed
-                                    height: 20,
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 10),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(Icons.visibility, color: Colors.grey),
-                                  SizedBox(width: 3),
-                                  Text('${widget.ad.views}',
-                                      style: TextStyle(color: Colors.black54)),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              // Price and Shift Info
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.4,
-                                    child: _buildInfoCard(
-                                      'Үнэ / Хөлс',
-                                      widget.ad.price + '₮',
-                                      icon: Icons.attach_money,
-                                      iconColor: Theme.of(context)
-                                          .colorScheme
-                                          .surfaceContainerHighest,
-                                      iconBackground: Theme.of(context)
-                                          .colorScheme
-                                          .surfaceContainerHighest,
-                                    ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width *
-                                        0.45,
-                                    child: _buildInfoCard(
-                                      'Хугацаа',
-                                      widget.ad.shift,
-                                      icon: Icons.access_time,
-                                      iconColor: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary,
-                                      iconBackground: Theme.of(context)
-                                          .colorScheme
-                                          .tertiary,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 20),
-                              // Details with "See More"
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Дэлгэрэнгүй',
-                                  style: TextStyle(
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black87),
-                                ),
-                              ),
-                              const SizedBox(height: 8),
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    isExpanded = !isExpanded;
-                                  });
-                                },
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      isExpanded ? "See Less" : "See More",
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .surfaceContainerHighest,
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                              // Tags and Action Buttons
-                              Wrap(
-                                spacing: 12.0,
-                                children: [
-                                  _buildTag("Туршлагатай"),
-                                  _buildTag("Бүтэн цаг"),
-                                  _buildTag("Маргааш"),
-                                ],
-                              ),
-                              const SizedBox(height: 25),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  // Хүсэлт Count with Icon
-                                  Column(
+                                  // Address Row
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Row(
-                                        children: [
-                                          Icon(Icons.group,
-                                              color: Colors.orange),
-                                          const SizedBox(width: 4),
-                                          Text(
-                                            'Хүсэлт: ${widget.ad.requestCount}',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black54),
-                                          ),
-                                        ],
+                                      Text(
+                                        widget.ad.address,
+                                        style: TextStyle(fontSize: 25, color: Colors.black),
                                       ),
-                                      // Date
-                                      const SizedBox(height: 16),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            'Огноо: ${widget.ad.date}',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.black54),
-                                          ),
-                                        ],
+                                      Image.asset(
+                                        'assets/icons/google-maps.png',
+                                        width: 25,
+                                        height: 20,
                                       ),
                                     ],
                                   ),
-                                  const SizedBox(width: 5),
-                                  // Action Buttons
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                  const SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      _buildActionButton(
-                                        context,
-                                        label: 'Хүсэлт илгээх',
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .tertiary,
-                                        icon: Icons.group,
-                                        onPressed: () {
-                                          context.read<AdDescriptionBloc>().add(
+                                      Icon(Icons.visibility, color: Colors.grey),
+                                      SizedBox(width: 3),
+                                      Text('${widget.ad.views}',
+                                          style: TextStyle(color: Colors.black54)),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  // Price and Shift Info
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Container(
+                                        width: MediaQuery.of(context).size.width * 0.4,
+                                        child: _buildInfoCard(
+                                          'Үнэ / Хөлс',
+                                          widget.ad.price + '₮',
+                                          icon: Icons.attach_money,
+                                          iconColor: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                          iconBackground: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                        ),
+                                      ),
+                                      Container(
+                                        width: MediaQuery.of(context).size.width * 0.45,
+                                        child: _buildInfoCard(
+                                          'Хугацаа',
+                                          widget.ad.shift,
+                                          icon: Icons.access_time,
+                                          iconColor: Theme.of(context).colorScheme.tertiary,
+                                          iconBackground: Theme.of(context).colorScheme.tertiary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 20),
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Дэлгэрэнгүй',
+                                      style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.black87),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        isExpanded = !isExpanded;
+                                      });
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          isExpanded ? "See Less" : "See More",
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .surfaceContainerHighest,
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  const SizedBox(height: 20),
+                                  // Tags and Action Buttons
+                                  Wrap(
+                                    spacing: 12.0,
+                                    children: [
+                                      _buildTag("Туршлагатай"),
+                                      _buildTag("Бүтэн цаг"),
+                                      _buildTag("Маргааш"),
+                                    ],
+                                  ),
+                                  const SizedBox(height: 25),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Icon(Icons.group, color: Colors.orange),
+                                              const SizedBox(width: 4),
+                                              Text(
+                                                'Хүсэлт: ${widget.ad.requestCount}',
+                                                style: TextStyle(fontSize: 16, color: Colors.black54),
+                                              ),
+                                            ],
+                                          ),
+                                          const SizedBox(height: 16),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                'Огноо: ${widget.ad.date}',
+                                                style: TextStyle(fontSize: 16, color: Colors.black54),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      const SizedBox(width: 5),
+                                      Column(
+                                        crossAxisAlignment: CrossAxisAlignment.end,
+                                        children: [
+                                          _buildActionButton(
+                                            context,
+                                            label: 'Хүсэлт илгээх',
+                                            color: Theme.of(context).colorScheme.tertiary,
+                                            icon: Icons.group,
+                                            onPressed: () {
+                                              context.read<AdDescriptionBloc>().add(
                                                 SubmitJobRequest(widget.ad.id),
                                               );
-                                        },
-                                      ),
-                                      const SizedBox(height: 10),
-                                      _buildActionButton(
-                                        context,
-                                        label: 'Холбоо барих',
-                                        color: Theme.of(context)
-                                            .colorScheme
-                                            .surfaceContainerHighest,
-                                        icon: Icons.phone,
-                                        onPressed: () {
-                                          _launchPhoneDialer(
-                                              widget.phoneNumber);
-                                        },
+                                            },
+                                          ),
+                                          const SizedBox(height: 10),
+                                          _buildActionButton(
+                                            context,
+                                            label: 'Холбоо барих',
+                                            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+                                            icon: Icons.phone,
+                                            onPressed: () {
+                                              _launchPhoneDialer(widget.phoneNumber);
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ],
                                   ),
                                 ],
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
-            // Positioned Back Arrow
             Positioned(
               top: 10,
               left: 10,
@@ -299,11 +269,8 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
     );
   }
 
-  // Helper widget to build the styled info card with custom icon and colors
   Widget _buildInfoCard(String label, String value,
-      {required IconData icon,
-      required Color iconColor,
-      required Color iconBackground}) {
+      {required IconData icon, required Color iconColor, required Color iconBackground}) {
     return Container(
       padding: EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -318,39 +285,15 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
               color: iconBackground,
               shape: BoxShape.circle,
             ),
-            child: Container(
-              padding: EdgeInsets.all(6),
-              decoration: BoxDecoration(
-                color: iconColor,
-                shape: BoxShape.circle,
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: Icon(
-                icon,
-                color: Colors.white,
-                size: 16,
-              ),
-            ),
+            child: Icon(icon, color: Colors.white, size: 16),
           ),
           SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                label,
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500),
-              ),
+              Text(label, style: TextStyle(color: Colors.grey, fontSize: 14, fontWeight: FontWeight.w500)),
               const SizedBox(height: 4),
-              Text(
-                value,
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
-              ),
+              Text(value, style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black)),
             ],
           ),
         ],
@@ -358,7 +301,6 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
     );
   }
 
-  // Helper widget to build a tag
   Widget _buildTag(String text) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -366,20 +308,11 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
         color: Colors.grey[100],
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Text(
-        text,
-        style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-      ),
+      child: Text(text, style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold)),
     );
   }
 
-  // Helper widget to build an action button with an optional icon
-  Widget _buildActionButton(BuildContext context,
-      {required String label,
-      required Color color,
-      IconData? icon,
-        Color? textColor,
-      required VoidCallback onPressed}) {
+  Widget _buildActionButton(BuildContext context, {required String label, required Color color, IconData? icon, required VoidCallback onPressed}) {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.symmetric(horizontal: 24, vertical: 12),
@@ -392,12 +325,8 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
     );
   }
 
-  // Function to launch the phone dialer
   Future<void> _launchPhoneDialer(String phoneNumber) async {
-    final Uri launchUri = Uri(
-      scheme: 'tel',
-      path: phoneNumber,
-    );
+    final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
     if (await canLaunchUrl(launchUri)) {
       await launchUrl(launchUri);
     } else {
