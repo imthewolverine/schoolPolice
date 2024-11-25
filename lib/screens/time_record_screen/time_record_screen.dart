@@ -24,17 +24,41 @@ class _TimeRecordScreenState extends State<TimeRecordScreen> {
   String _totalWorkedTimeText = "00:00";
   late DateTime _arrivalTime;
   late DateTime _departureTime;
-  LatLng _adLocation = LatLng(47.916646, 106.912154);
+  LatLng _adLocation = LatLng(47.91996709359336, 106.92849368047614);
   LatLng? _userLocation;
 
   @override
   void initState() {
     super.initState();
+    _requestLocationPermission();
+    _getInitialLocation();
     _listenToLocationChanges();
   }
 
-  void _listenToLocationChanges() async {
+  void _requestLocationPermission() async {
+    final permissionGranted = await _location.requestPermission();
+    if (permissionGranted != PermissionStatus.granted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Location permission is required.")),
+      );
+    }
+  }
+
+  void _getInitialLocation() async {
+    try {
+      final locationData = await _location.getLocation();
+      setState(() {
+        _userLocation = LatLng(locationData.latitude!, locationData.longitude!);
+      });
+    } catch (e) {
+      print("Error fetching initial location: $e");
+    }
+  }
+
+  void _listenToLocationChanges() {
+    _location.changeSettings(accuracy: LocationAccuracy.high);
     _location.onLocationChanged.listen((LocationData locationData) {
+      print("User Location: Lat:${locationData.latitude}, Lng:${locationData.longitude}");
       setState(() {
         _userLocation = LatLng(locationData.latitude!, locationData.longitude!);
       });

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:school_police/screens/ad_description_screen/ad_description_screen.dart';
 import '../../models/ad.dart';
+import '../screens/ad_description_screen/ad_description_bloc.dart';
 
 class AdCard extends StatelessWidget {
   final Ad ad;
@@ -131,9 +133,12 @@ class AdCard extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AdDescriptionScreen(
-                      ad: ad,  // Pass the Ad object directly
-                      phoneNumber: "1234567890",  // Replace with actual phone number if available
+                    builder: (context) => BlocProvider(
+                      create: (context) => AdDescriptionBloc(),
+                      child: AdDescriptionScreen(
+                        ad: ad,  // Pass the Ad object directly
+                        phoneNumber: "1234567890",  // Replace with actual phone number if available
+                      ),
                     ),
                   ),
                 );

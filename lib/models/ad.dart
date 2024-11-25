@@ -1,5 +1,6 @@
 class Ad {
   final String id;
+  final String userId; // New field for the user ID of the person who placed the ad
   final String userName;
   final String profilePic;
   final String address;
@@ -12,6 +13,7 @@ class Ad {
 
   Ad({
     required this.id,
+    required this.userId, // Include userId in the constructor
     required this.userName,
     required this.profilePic,
     required this.address,
@@ -23,10 +25,11 @@ class Ad {
     this.requestCount = 0, // Default value of 0
   });
 
-  // toMap and fromMap should be updated to include requestCount
+  // Updated toMap method to include userId
   Map<String, dynamic> toMap() {
     return {
       'id': id,
+      'userId': userId, // Include userId in the map
       'userName': userName,
       'profilePic': profilePic,
       'address': address,
@@ -39,9 +42,11 @@ class Ad {
     };
   }
 
+  // Updated fromMap factory to include userId
   factory Ad.fromMap(Map<String, dynamic> map) {
     return Ad(
       id: map['id'],
+      userId: map['userId'], // Retrieve userId from the map
       userName: map['userName'],
       profilePic: map['profilePic'],
       address: map['address'],

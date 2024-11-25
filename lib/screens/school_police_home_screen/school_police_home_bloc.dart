@@ -6,6 +6,7 @@ import '../../models/user_model.dart';
 class SchoolPoliceBloc extends Bloc<SchoolPoliceEvent, SchoolPoliceState> {
   final List<User> schoolPoliceList = [
     User(
+      userId: '1', // Unique userId for each user
       username: 'admin',
       firstName: 'Batla',
       lastName: 'Lhagva',
@@ -16,6 +17,7 @@ class SchoolPoliceBloc extends Bloc<SchoolPoliceEvent, SchoolPoliceState> {
       assignedSchools: ['5-р сургууль', '10-р сургууль'],
     ),
     User(
+      userId: '2', // Unique userId for each user
       username: 'police2',
       firstName: 'Temuujin',
       lastName: 'Dorj',
@@ -26,6 +28,7 @@ class SchoolPoliceBloc extends Bloc<SchoolPoliceEvent, SchoolPoliceState> {
       assignedSchools: ['5-р сургууль', '24-р сургууль'],
     ),
     User(
+      userId: '3', // Unique userId for each user
       username: 'police3',
       firstName: 'Narangerel',
       lastName: 'Bold',

@@ -3,6 +3,7 @@ import 'dart:io';
 enum UserRole { parent, schoolPolice }
 
 class User {
+  final String userId; // New field for user ID
   final String username;
   final String firstName;
   final String lastName;
@@ -14,6 +15,7 @@ class User {
   final List<String>? assignedSchools; // Only for schoolPolice
 
   User({
+    required this.userId, // Add userId to the constructor
     required this.username,
     required this.firstName,
     required this.lastName,
@@ -26,6 +28,7 @@ class User {
   });
 
   User copyWith({
+    String? userId, // Add userId to copyWith method
     String? username,
     String? firstName,
     String? lastName,
@@ -37,6 +40,7 @@ class User {
     List<String>? assignedSchools,
   }) {
     return User(
+      userId: userId ?? this.userId, // Set userId in copyWith
       username: username ?? this.username,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -51,6 +55,7 @@ class User {
 
   Map<String, dynamic> toMap() {
     return {
+      'userId': userId, // Include userId in toMap
       'username': username,
       'firstName': firstName,
       'lastName': lastName,
@@ -65,6 +70,7 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
+      userId: map['userId'], // Initialize userId from map
       username: map['username'],
       firstName: map['firstName'],
       lastName: map['lastName'],

@@ -5,11 +5,11 @@ import '../../models/ad.dart';
 import '../ad_description_screen/ad_description_bloc.dart';
 import '../ad_description_screen/ad_description_event.dart';
 import '../ad_description_screen/ad_description_state.dart';
+import '../../services/notification_service.dart'; // Import the NotificationService
 
 class AdDescriptionScreen extends StatefulWidget {
   final Ad ad;
   final String phoneNumber;
-
   const AdDescriptionScreen({
     required this.ad,
     required this.phoneNumber,
@@ -21,6 +21,7 @@ class AdDescriptionScreen extends StatefulWidget {
 
 class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
   bool isExpanded = false;
+  final NotificationService notificationService = NotificationService(); // Initialize NotificationService
 
   @override
   Widget build(BuildContext context) {
@@ -222,9 +223,17 @@ class _AdDescriptionScreenState extends State<AdDescriptionScreen> {
                                             label: 'Хүсэлт илгээх',
                                             color: Theme.of(context).colorScheme.tertiary,
                                             icon: Icons.group,
-                                            onPressed: () {
+                                            onPressed: () async {
+                                              // Send job request through Bloc
                                               context.read<AdDescriptionBloc>().add(
                                                 SubmitJobRequest(widget.ad.id),
+                                              );
+
+                                              // Send notification after request is sent
+                                              await notificationService.sendNotification(
+                                                widget.ad.userId,  // Pass the user ID for the ad
+                                                'Хүсэлт илгээгдсэн', // Notification title
+                                                '${widget.ad.userName} таны зар дээр хүсэлт илгээлээ!', // Notification body
                                               );
                                             },
                                           ),

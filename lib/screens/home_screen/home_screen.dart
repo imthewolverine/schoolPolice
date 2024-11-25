@@ -10,26 +10,25 @@ import '../../models/ad.dart';
 import '../home_screen/home_state.dart';
 import '../school_police_home_screen/school_police_home_screen.dart';
 
-
 List<Ad> exampleAds = [
   Ad(
     id: '1',
+    userId: '1', // Added userId
     userName: 'John Doe',
-    profilePic:
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
+    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSxSycPmZ67xN1lxHxyMYOUPxZObOxnkLf6w&s',
     address: '5-р сургууль',
     price: '50000',
     date: '2024-10-10',
     shift: '07:30-12:30',
     additionalInfo: '''
-    This job requires a highly skilled and experienced individual who is passionate about working with students. The successful candidate will be responsible for ensuring safe and timely transportation of students to and from school, managing communications with parents, and coordinating schedules with school authorities.
-  ''',
+      This job requires a highly skilled and experienced individual who is passionate about working with students. The successful candidate will be responsible for ensuring safe and timely transportation of students to and from school, managing communications with parents, and coordinating schedules with school authorities.
+    ''',
   ),
   Ad(
     id: '2',
+    userId: 'user456', // Added userId
     userName: 'Jane Smith',
-    profilePic:
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
+    profilePic: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s',
     address: '456 Oak Avenue, Town',
     price: '\$60/hour',
     date: '2024-10-12',
@@ -87,8 +86,9 @@ class HomeScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border(
                     bottom: BorderSide(
-                        color: Colors.grey,
-                        width: 1), // Grey border for inactive tabs
+                      color: Colors.grey,
+                      width: 1, // Grey border for inactive tabs
+                    ),
                   ),
                 ),
                 child: TabBar(
@@ -124,8 +124,7 @@ class HomeScreen extends StatelessWidget {
                             if (state is HomeLoading) {
                               return Center(child: CircularProgressIndicator());
                             } else if (state is HomeLoaded) {
-                              final adsToShow =
-                              state.ads.isEmpty ? exampleAds : state.ads;
+                              final adsToShow = state.ads.isEmpty ? exampleAds : state.ads;
                               return _buildAdList(context, adsToShow);
                             } else if (state is HomeError) {
                               return _buildAdList(context, exampleAds);
@@ -140,7 +139,7 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               // "School Police" Tab - Displaying SchoolPoliceScreen
-              SchoolPoliceHomeScreen(parentSchool: '5-р сургууль',),
+              SchoolPoliceHomeScreen(parentSchool: '5-р сургууль'),
             ],
           ),
           floatingActionButton: Padding(
@@ -169,14 +168,12 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
           ),
-          floatingActionButtonLocation:
-          FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
         ),
       ),
     );
   }
 
-  // Function to show the bottom sheet for adding a post
   void _showAddPostBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -236,10 +233,8 @@ class HomeScreen extends StatelessWidget {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              _buildAdBanner(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
-              _buildAdBanner(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
+              _buildAdBanner('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
+              _buildAdBanner('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvjId5ED74jYnBlek4hJ1jR5tOSeZ0V2KuXQ&s'),
             ],
           ),
         ),
